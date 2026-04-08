@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Revenue Reset Worksheet | Cash Flow Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Cash Flow Machine</div>
+      <div class="ws-title">The Revenue Reset Worksheet</div>
+      <div class="ws-subtitle">Find the leak. Fix the constraint. Free the cash.</div>
+    </div>
+    <div class="ws-session">Session 01</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts: The 4 Revenue Leaks</div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Margin Compression</strong> - Revenue grows but profit shrinks. You are buying growth.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Operational Inefficiency</strong> - Your delivery costs more time and money than it should.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Poor Offer Structure</strong> - Too many offers, too much complexity, diluted focus.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Cash Conversion Cycle</strong> - You collect revenue too slowly. Cash sits in the wrong hands.</div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Revenue Streams Audit</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Offer Name</th>
+          <th>Price</th>
+          <th>Monthly Revenue</th>
+          <th>Est. Margin %</th>
+          <th>% of Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: P&L Snapshot</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Month 1</th>
+          <th>Month 2</th>
+          <th>Month 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Total Revenue</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>COGS</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Fixed Costs</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Net Profit</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Constraint Identification</div>
+    <div class="field-label" style="margin-bottom: 16px;">Which of the 4 Revenue Leaks is your PRIMARY constraint?</div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div>Margin Compression</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div>Operational Inefficiency</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div>Poor Offer Structure</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div>Cash Conversion Cycle</div>
+    </div>
+    <div class="field-group" style="margin-top: 24px;">
+      <div class="field-label">Why? What evidence do you see?</div>
+      <div class="field-box large"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My Cashflow Constraint is:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">The first thing I will do about it:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">By when:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Now that you have identified your revenue leak, imagine if we fixed it for you in 30 days.</div>
+    <div class="dfy-cta">Book a call to learn how we build your cash flow machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

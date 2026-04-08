@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 04 - The Content Waterfall | Social Media Machine</title>
+<link rel="icon" href="https://cdn.prod.website-files.com/673ff72afe499201ca5b3d58/682b25e288fcb16455c047c1_6502233257c93f97737f04d5_favicon.png" type="image/png">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000000;
+  --dark: #0a0a0a;
+  --dark-card: #111111;
+  --card-border: #1C1C1C;
+  --white: #f5f5f7;
+  --white-high: #ffffff;
+  --white-mid: rgba(245,245,247,0.7);
+  --white-low: rgba(245,245,247,0.4);
+  --lime: #D9FC67;
+  --lime-dim: rgba(217,252,103,0.15);
+  --red: #FF4D4D;
+  --red-dim: rgba(255,77,77,0.15);
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --billboard: clamp(72px, 12vw, 160px);
+  --hero: clamp(64px, 9vw, 120px);
+  --headline: clamp(56px, 7vw, 100px);
+  --subhead: clamp(40px, 4.5vw, 64px);
+  --large: clamp(28px, 3vw, 40px);
+  --reading: clamp(22px, 2.2vw, 28px);
+  --body: clamp(20px, 1.8vw, 24px);
+  --eyebrow: 18px;
+  --small: 15px;
+  --content-width: min(1100px, 82vw);
+  --content-narrow: min(800px, 72vw);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--lime);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.15s ease;
+}
+
+/* Nav watermark */
+.nav-watermark {
+  position: fixed;
+  top: 32px;
+  left: 40px;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-low);
+  z-index: 100;
+  font-weight: 500;
+}
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  bottom: 32px;
+  right: 40px;
+  font-size: var(--small);
+  letter-spacing: 0.15em;
+  color: var(--white-low);
+  z-index: 100;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 100;
+  transition: opacity 0.6s ease;
+}
+.scroll-hint span {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-low);
+}
+.scroll-hint .arrow {
+  width: 1px;
+  height: 24px;
+  background: var(--white-low);
+  animation: pulse-down 2s ease infinite;
+}
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+/* Sections */
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 56px;
+  position: relative;
+}
+
+/* Typography */
+.eyebrow {
+  font-size: var(--eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.billboard-text {
+  font-family: var(--font);
+  font-size: var(--billboard);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--white-high);
+  letter-spacing: -0.05em;
+  text-align: center;
+  max-width: 1200px;
+}
+
+.display {
+  font-family: var(--font);
+  font-size: var(--hero);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.headline {
+  font-family: var(--font);
+  font-size: var(--headline);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.subhead {
+  font-family: var(--font);
+  font-size: var(--subhead);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white-high);
+  letter-spacing: -0.03em;
+}
+
+.large-text {
+  font-family: var(--font);
+  font-size: var(--large);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.reading-text {
+  font-size: var(--reading);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.body-text {
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.small-text {
+  font-size: var(--small);
+  color: var(--white-low);
+  font-weight: 300;
+}
+
+/* Squiggly underline - animated draw from left to right */
+.squiggly-underline {
+  text-decoration: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='12' viewBox='0 0 100 12'%3E%3Cpath d='M0 8 Q12.5 2 25 8 Q37.5 14 50 8 Q62.5 2 75 8 Q87.5 14 100 8' fill='none' stroke='%23D9FC67' stroke-width='3'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-size: 50px 12px;
+  padding-bottom: 8px;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  position: relative;
+}
+/* Mask overlay that slides away to reveal the squiggly */
+.squiggly-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 16px;
+  background: var(--dark);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.5s;
+}
+.visible .squiggly-underline::after,
+.reveal.visible .squiggly-underline::after {
+  width: 0%;
+}
+/* Billboard slides get black bg for mask */
+.billboard-slide .squiggly-underline::after { background: var(--dark); }
+
+/* Billboard slides */
+.billboard-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 80px;
+}
+
+/* Green dot */
+.green-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.green-dot.pulse {
+  animation: dot-pulse 2.5s ease infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217,252,103,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(217,252,103,0); }
+}
+
+/* Cards */
+.card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Glow on accent elements */
+.glow {
+  box-shadow: 0 0 20px rgba(217,252,103,0.15);
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Content containers */
+.content {
+  width: var(--content-width);
+  max-width: 100%;
+}
+
+.content-narrow {
+  width: var(--content-narrow);
+  max-width: 100%;
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible .reveal-child {
+  opacity: 1;
+  transform: none;
+}
+.reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.1s; }
+.reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.2s; }
+.reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.3s; }
+.reveal.visible .reveal-child:nth-child(4) { transition-delay: 0.4s; }
+.reveal.visible .reveal-child:nth-child(5) { transition-delay: 0.5s; }
+
+/* Stat card */
+.stat-card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--lime);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.stat-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Insight card */
+.insight-card {
+  background: var(--lime-dim);
+  border: 1px solid rgba(217,252,103,0.12);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.insight-card:hover {
+  background: rgba(217,252,103,0.2);
+  border-color: rgba(217,252,103,0.2);
+}
+
+/* Framework number - LIME GREEN */
+.framework-number {
+  font-family: var(--font);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 800;
+  color: var(--lime);
+  line-height: 1;
+}
+
+/* Animated severity bars */
+.bar-severity {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.bar-severity-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--lime);
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .bar-severity-fill { width: var(--fill-width, 70%); }
+
+/* Before/After Split */
+.split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.split-side {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.split-before {
+  background: rgba(255,77,77,0.08);
+  border: 1px solid rgba(255,77,77,0.15);
+  border-radius: 16px 0 0 16px;
+}
+.split-after {
+  background: rgba(217,252,103,0.08);
+  border: 1px solid rgba(217,252,103,0.15);
+  border-radius: 0 16px 16px 0;
+}
+.split-label {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.split-before .split-label { color: var(--red); }
+.split-after .split-label { color: var(--lime); }
+.split-number {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.split-before .split-number { color: rgba(255,77,77,0.8); }
+.split-after .split-number { color: var(--lime); }
+.split-detail {
+  font-size: var(--small);
+  color: var(--white-mid);
+  font-weight: 300;
+}
+
+/* 6-Session Timeline */
+.timeline {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .timeline-line { transform: translateY(-50%) scaleX(1); }
+.timeline-dot-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.15);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s;
+}
+.visible .timeline-dot { transform: scale(1); }
+.visible .timeline-dot-wrap:nth-child(2) .timeline-dot { transition-delay: 0.3s; }
+.visible .timeline-dot-wrap:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
+.visible .timeline-dot-wrap:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
+.visible .timeline-dot-wrap:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
+.visible .timeline-dot-wrap:nth-child(6) .timeline-dot { transition-delay: 1.1s; }
+.visible .timeline-dot-wrap:nth-child(7) .timeline-dot { transition-delay: 1.3s; }
+.timeline-dot.active {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.timeline-dot.completed {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.visible .timeline-dot.active {
+  animation: dot-pulse 2.5s ease 1.5s infinite;
+}
+.timeline-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-low);
+  text-align: center;
+}
+.timeline-dot.active + .timeline-label,
+.timeline-dot-wrap.active .timeline-label {
+  color: var(--lime);
+}
+.timeline-dot.completed + .timeline-label,
+.timeline-dot-wrap.completed .timeline-label {
+  color: var(--lime);
+}
+
+/* Animated counter */
+.counter {
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bar chart fill */
+.bar-fill {
+  width: 0;
+  transition: width 2s cubic-bezier(.16,1,.3,1);
+  border-radius: 4px;
+}
+
+/* Exercise numbered items */
+.exercise-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.exercise-option:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+.exercise-option .option-num {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lime);
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* Preview bullet */
+.preview-bullet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--body);
+  color: var(--white-mid);
+}
+.preview-bullet::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  flex-shrink: 0;
+}
+
+/* Funnel flow diagram */
+.funnel-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+.funnel-flow-step {
+  flex: 1;
+  padding: 32px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  transition: background 0.2s ease;
+}
+.funnel-flow-step:hover {
+  background: rgba(255,255,255,0.06);
+}
+.funnel-flow-step:first-child { border-radius: 16px 0 0 16px; }
+.funnel-flow-step:last-child { border-radius: 0 16px 16px 0; }
+.funnel-flow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgba(217,252,103,0.3);
+  z-index: 2;
+}
+.funnel-flow-number {
+  font-size: var(--eyebrow);
+  letter-spacing: 0.2em;
+  color: var(--lime);
+  font-weight: 800;
+}
+.funnel-flow-label {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 700;
+  color: var(--white-high);
+}
+.funnel-flow-desc {
+  font-size: var(--small);
+  color: var(--white-mid);
+  line-height: 1.4;
+  font-weight: 300;
+}
+
+/* Stack layers */
+.stack-layer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 28px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--lime);
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+.stack-layer:hover {
+  background: rgba(255,255,255,0.06);
+}
+.visible .stack-layer { transform: scaleX(1); }
+.visible .stack-layer:nth-child(1) { transition-delay: 0.1s; }
+.visible .stack-layer:nth-child(2) { transition-delay: 0.3s; }
+.visible .stack-layer:nth-child(3) { transition-delay: 0.5s; }
+.visible .stack-layer:nth-child(4) { transition-delay: 0.7s; }
+
+/* CTA card */
+.cta-card {
+  background: var(--lime-dim);
+  border: 2px solid rgba(217,252,103,0.25);
+  border-radius: 20px;
+  padding: 48px;
+  text-align: center;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cta-card:hover {
+  background: rgba(217,252,103,0.2);
+  border-color: rgba(217,252,103,0.4);
+  box-shadow: 0 0 40px rgba(217,252,103,0.15);
+}
+.cta-button {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--dark);
+  font-family: var(--font);
+  font-size: var(--body);
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(217,252,103,0.3);
+}
+
+/* Waterfall cascade animation */
+.waterfall-box {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  font-size: var(--small);
+  color: var(--white-high);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .waterfall-box { opacity: 1; transform: none; }
+
+/* Multiplication table */
+.mult-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mult-row:last-child { border-bottom: none; }
+.mult-num {
+  font-size: var(--large);
+  font-weight: 800;
+  color: var(--lime);
+  width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.mult-label {
+  font-size: var(--body);
+  color: var(--white-high);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  section { padding: 80px 24px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .nav-watermark { top: 20px; left: 20px; font-size: 11px; }
+  .slide-counter { bottom: 20px; right: 20px; }
+  .billboard-text { font-size: clamp(40px, 10vw, 80px); }
+  .billboard-slide { padding: 80px 32px; }
+  .split-container { grid-template-columns: 1fr; }
+  .split-before { border-radius: 16px 16px 0 0; }
+  .split-after { border-radius: 0 0 16px 16px; }
+  .funnel-flow { flex-direction: column; }
+  .funnel-flow-step { border-radius: 0 !important; }
+  .funnel-flow-step:first-child { border-radius: 16px 16px 0 0 !important; }
+  .funnel-flow-step:last-child { border-radius: 0 0 16px 16px !important; }
+  .funnel-flow-step:not(:last-child)::after { display: none; }
+  .timeline { flex-wrap: wrap; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-watermark">Founder OS</div>
+<div class="slide-counter" id="slideCounter">01 / 27</div>
+<div class="scroll-hint" id="scrollHint">
+  <span>Scroll</span>
+  <div class="arrow"></div>
+</div>
+
+<!-- SLIDE 1: Title -->
+<section>
+  <div class="content reveal" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:24px;">
+    <div class="eyebrow reveal-child">Social Media Machine / Session 04</div>
+    <h1 class="display reveal-child">The Content<br>Waterfall</h1>
+    <p class="reading-text reveal-child" style="margin-top:8px;">1 piece becomes 22+. Never start from zero.</p>
+    <div class="green-dot pulse reveal-child" style="margin-top:32px;"></div>
+    <p class="small-text reveal-child" style="margin-top:16px;">Matt Gray / Founder OS</p>
+  </div>
+</section>
+
+<!-- SLIDE 2: Session 3 Recap -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Session 3 Recap</div>
+      <h2 class="subhead reveal-child">What We Built Last Time</h2>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Mastered hook architecture and the 5 hook types</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Wrote your best hooks using proven frameworks</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Built a hook bank you can pull from every week</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: The Promise -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">After This Session</div>
+      <p class="large-text reveal-child" style="max-width:800px;">You will never create content from scratch again.</p>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Content Waterfall system mapped</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">10+ derivative pieces from a single anchor</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Automation layer identified for your workflow</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: BILLBOARD -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">The founders who never run out of content are not creating <span class="squiggly-underline">more</span>. They are extracting more from less.</p>
+  </div>
+</section>
+
+<!-- SLIDE 5: The Problem -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">The Pattern</div>
+    <p class="large-text reveal-child" style="max-width:800px;">Most founders treat every post like a blank page. That is not a content strategy. That is a burnout schedule.</p>
+    <div class="grid-2 reveal-child" style="max-width:700px;">
+      <div class="stat-card glow" style="text-align:center;">
+        <p style="font-size:var(--large); font-weight:800; color:var(--lime); letter-spacing:-0.04em;" class="counter" data-target="81" data-suffix="%">0%</p>
+        <p style="font-size:var(--small); color:var(--white-mid); margin-top:8px;">of founders say content creation takes too long</p>
+      </div>
+      <div class="stat-card glow" style="text-align:center;">
+        <p style="font-size:var(--large); font-weight:800; color:var(--lime); letter-spacing:-0.04em;" class="counter" data-target="94" data-suffix="%">0%</p>
+        <p style="font-size:var(--small); color:var(--white-mid); margin-top:8px;">repurpose less than 10% of what they create</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: Core Framework Intro -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Framework</div>
+      <h2 class="headline reveal-child">The Content Waterfall</h2>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; max-width:700px; margin:0 auto;">One anchor piece. Four layers. 22+ assets. Every week. Without creating from scratch.</p>
+  </div>
+</section>
+
+<!-- SLIDE 7: 4-Layer Waterfall Visual -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div class="funnel-flow reveal-child">
+      <div class="funnel-flow-step">
+        <span class="funnel-flow-number">01</span>
+        <span class="funnel-flow-label">Anchor</span>
+        <span class="funnel-flow-desc">1 long-form video or article per week</span>
+      </div>
+      <div class="funnel-flow-step">
+        <span class="funnel-flow-number">02</span>
+        <span class="funnel-flow-label">Derivatives</span>
+        <span class="funnel-flow-desc">Clips, quotes, carousels, threads</span>
+      </div>
+      <div class="funnel-flow-step">
+        <span class="funnel-flow-number">03</span>
+        <span class="funnel-flow-label">Repurpose</span>
+        <span class="funnel-flow-desc">1 video becomes 22+ pieces</span>
+      </div>
+      <div class="funnel-flow-step">
+        <span class="funnel-flow-number">04</span>
+        <span class="funnel-flow-label">Automate</span>
+        <span class="funnel-flow-desc">Tools, templates, team workflows</span>
+      </div>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Most founders stop at the anchor. They film one video, publish it once, and start over. The waterfall extracts every ounce of value from that single effort.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: Layer 1 - The Anchor Piece -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">01</span> / The Anchor Piece</div>
+      <h2 class="subhead reveal-child">One Piece. Maximum Depth.</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> One long-form video, podcast, or article per week</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Pick your strongest medium (video, audio, or written)</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Go deep on one topic your audience cares about</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">The anchor is the source. Everything else flows from it.</p>
+  </div>
+</section>
+
+<!-- SLIDE 9: Layer 2 - The Derivative Layer -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">02</span> / The Derivative Layer</div>
+      <h2 class="subhead reveal-child">Extract. Reformat. Distribute.</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Pull the 3-5 best moments from your anchor</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Reformat for each platform (vertical clips, carousels, threads)</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Each derivative stands alone but points back to the source</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Derivatives are not lesser content. They are the same idea in a different container.</p>
+  </div>
+</section>
+
+<!-- SLIDE 10: Layer 3 - The Repurpose Engine -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">03</span> / The Repurpose Engine</div>
+      <h2 class="subhead reveal-child">1 Video. 22+ Pieces.</h2>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">This is not theory. This is the exact multiplication we run every week at Founder OS.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: Content Multiplication Table -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">The Math</div>
+      <h2 class="subhead reveal-child">Content Multiplication Table</h2>
+    </div>
+    <div class="card reveal-child" style="padding:32px 36px;">
+      <div style="display:flex; flex-direction:column; gap:0;">
+        <div class="mult-row">
+          <span class="mult-num">4</span>
+          <span class="mult-label">Short-form clips (Reels, TikTok, Shorts)</span>
+        </div>
+        <div class="mult-row">
+          <span class="mult-num">3</span>
+          <span class="mult-label">Carousel posts (LinkedIn, Instagram)</span>
+        </div>
+        <div class="mult-row">
+          <span class="mult-num">5</span>
+          <span class="mult-label">Text posts (Twitter/X threads, LinkedIn)</span>
+        </div>
+        <div class="mult-row">
+          <span class="mult-num">2</span>
+          <span class="mult-label">Newsletter editions (weekly email content)</span>
+        </div>
+        <div class="mult-row">
+          <span class="mult-num">8</span>
+          <span class="mult-label">Stories (behind-the-scenes, polls, quotes)</span>
+        </div>
+      </div>
+      <div style="margin-top:24px; padding-top:20px; border-top:2px solid var(--lime); display:flex; align-items:center; gap:12px;">
+        <span style="font-size:var(--large); font-weight:800; color:var(--lime);">22+</span>
+        <span style="font-size:var(--body); color:var(--white-high); font-weight:600;">pieces from 1 anchor. Zero extra filming.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: Layer 4 - The Automation Layer -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">04</span> / The Automation Layer</div>
+      <h2 class="subhead reveal-child">Remove Yourself from the Assembly Line</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> AI tools for transcription, clip selection, and caption generation</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Templates for carousels, threads, and newsletters</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Team workflows: editor, designer, scheduler</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Your job is the anchor. Everything downstream can be systematized.</p>
+  </div>
+</section>
+
+<!-- SLIDE 13: Waterfall Diagram - Animated Cascade -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Waterfall in Action</div>
+      <h2 class="subhead reveal-child">One Anchor. Infinite Distribution.</h2>
+    </div>
+    <!-- Top: Anchor -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:16px; width:100%; max-width:700px;">
+      <div class="waterfall-box" style="width:260px; border-color:var(--lime); transition-delay:0.1s;">
+        <span style="color:var(--lime); font-weight:800;">1 Anchor Video</span>
+      </div>
+      <!-- Arrow -->
+      <div style="width:2px; height:24px; background:rgba(217,252,103,0.3);"></div>
+      <!-- Mid: 5 derivatives -->
+      <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; width:100%;">
+        <div class="waterfall-box" style="transition-delay:0.3s;">4 Clips</div>
+        <div class="waterfall-box" style="transition-delay:0.4s;">3 Carousels</div>
+        <div class="waterfall-box" style="transition-delay:0.5s;">5 Threads</div>
+        <div class="waterfall-box" style="transition-delay:0.6s;">2 Emails</div>
+        <div class="waterfall-box" style="transition-delay:0.7s;">8 Stories</div>
+      </div>
+      <!-- Arrow -->
+      <div style="width:2px; height:24px; background:rgba(217,252,103,0.3);"></div>
+      <!-- Bottom: Result -->
+      <div class="waterfall-box" style="width:100%; border-color:var(--lime); transition-delay:0.9s;">
+        <span style="color:var(--lime); font-weight:800; font-size:var(--reading);">22+ Pieces Across 4 Platforms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14: BILLBOARD -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">One video. Twenty-two assets. That is not a hack. That is an <span class="squiggly-underline">architecture</span>.</p>
+  </div>
+</section>
+
+<!-- SLIDE 15: The Mindset Shift -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">The Shift</div>
+      <h2 class="subhead reveal-child">Creator vs. Architect</h2>
+    </div>
+    <div class="grid-2 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <p style="font-size:var(--eyebrow); font-weight:800; color:var(--red); letter-spacing:0.1em;">CREATOR</p>
+        <p class="body-text" style="color:var(--white-mid);">Starts from scratch every day</p>
+        <p class="body-text" style="color:var(--white-mid);">Publishes 1 piece per effort</p>
+        <p class="body-text" style="color:var(--white-mid);">Burns out in 90 days</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px; border-color:rgba(217,252,103,0.15);">
+        <p style="font-size:var(--eyebrow); font-weight:800; color:var(--lime); letter-spacing:0.1em;">ARCHITECT</p>
+        <p class="body-text" style="color:var(--white-high);">Builds systems that multiply</p>
+        <p class="body-text" style="color:var(--white-high);">Publishes 22+ per anchor</p>
+        <p class="body-text" style="color:var(--white-high);">Compounds for years</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 16: Live Exercise Intro -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Live Exercise</div>
+    <h2 class="headline reveal-child">Build Your Waterfall</h2>
+    <p class="reading-text reveal-child" style="margin-top:-8px;">The Content Waterfall Workshop</p>
+    <p class="body-text reveal-child" style="max-width:640px;">20 minutes. Plan the anchor. Map the derivatives. Identify the automation.</p>
+    <div class="card glow reveal-child" style="max-width:540px; text-align:left;">
+      <p style="font-size:var(--body); color:var(--white-mid);"><strong style="color:var(--white-high);">You will need:</strong> Your content ideas list, your platform accounts, and your waterfall worksheet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 17: Exercise Step 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 01</span></div>
+      <h2 class="subhead reveal-child">Plan Your Next Anchor Piece</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">Define the anchor that everything flows from.</p>
+      <div style="background:rgba(255,255,255,0.03); border-radius:10px; padding:20px; margin-top:12px; font-size:var(--small); font-family:var(--font);">
+        <div style="display:grid; grid-template-columns:1fr auto; gap:8px 24px; color:var(--white-mid);">
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Question</span>
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Your Answer</span>
+          <span style="color:var(--white-high);">Topic</span>
+          <span>_______________</span>
+          <span style="color:var(--white-high);">Platform</span>
+          <span>_______________</span>
+          <span style="color:var(--white-high);">Format (video, audio, written)</span>
+          <span>_______________</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 18: Exercise Step 2 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 02</span></div>
+      <h2 class="subhead reveal-child">Map 10 Derivative Pieces</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; line-height:1.6; font-size:var(--body);">From your single anchor, list 10 pieces you can extract:</p>
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:8px 16px; margin-top:20px;">
+        <span style="color:var(--lime); font-weight:800;">1.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">2.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">3.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">4.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">5.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">6.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">7.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">8.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">9.</span><span style="color:var(--white-mid);">_______________</span>
+        <span style="color:var(--lime); font-weight:800;">10.</span><span style="color:var(--white-mid);">_______________</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 19: Exercise Step 3 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 03</span></div>
+      <h2 class="subhead reveal-child">Identify What You Can Automate or Delegate</h2>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Look at your 10 derivatives. Which ones can a tool handle? Which ones can a team member own? Circle them.</p>
+    </div>
+    <div class="grid-2 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+        <p style="font-size:var(--eyebrow); font-weight:800; color:var(--lime); letter-spacing:0.1em;">AUTOMATE</p>
+        <p class="body-text" style="color:var(--white-mid);">Transcription, clip selection, caption generation, scheduling</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+        <p style="font-size:var(--eyebrow); font-weight:800; color:var(--lime); letter-spacing:0.1em;">DELEGATE</p>
+        <p class="body-text" style="color:var(--white-mid);">Editing, design, carousel creation, newsletter formatting</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 20: Exercise Step 4 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 04</span></div>
+      <h2 class="subhead reveal-child">Share Your Waterfall Plan</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="exercise-option">
+          <span class="option-num">1</span>
+          <p style="color:var(--white-high); font-size:var(--body);">Your anchor topic and format</p>
+        </div>
+        <div class="exercise-option">
+          <span class="option-num">2</span>
+          <p style="color:var(--white-high); font-size:var(--body);">Your top 3 derivative pieces</p>
+        </div>
+        <div class="exercise-option">
+          <span class="option-num">3</span>
+          <p style="color:var(--white-high); font-size:var(--body);">What you will automate vs. delegate</p>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Drop your waterfall plan in chat. Let the group see your system.</p>
+  </div>
+</section>
+
+<!-- SLIDE 21: Case Study 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Case Study</div>
+      <h2 class="subhead reveal-child">From 1 Piece to 22 Per Week</h2>
+    </div>
+    <p class="body-text reveal-child" style="color:var(--white-high);">Founder filming 1 YouTube video per week. Published it once. One platform. One piece. One and done.</p>
+    <div class="split-container reveal-child">
+      <div class="split-side split-before">
+        <span class="split-label">Before</span>
+        <span class="split-number">1</span>
+        <span class="split-detail">piece published per week</span>
+        <span class="split-detail">1 platform only</span>
+      </div>
+      <div class="split-side split-after">
+        <span class="split-label">After</span>
+        <span class="split-number">22</span>
+        <span class="split-detail">pieces across 4 platforms</span>
+        <span class="split-detail">Zero extra filming</span>
+      </div>
+    </div>
+    <div class="stat-card glow reveal-child">
+      <p style="font-size:var(--body); color:var(--white-mid);"><span style="color:var(--lime); font-weight:800;">The install:</span> Same video. Waterfall system. 22 pieces published across YouTube, LinkedIn, Instagram, and Twitter every single week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 22: Case Study 2 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Case Study</div>
+    <h2 class="subhead reveal-child">From 20 Hours/Week<br>to 5 Hours/Week</h2>
+    <p class="body-text reveal-child" style="max-width:600px;">Agency owner spending 20 hours per week on content. Installed the waterfall plus automation layer. Content output tripled. Time dropped by 75%.</p>
+    <div class="split-container reveal-child">
+      <div class="split-side split-before">
+        <span class="split-label">Before</span>
+        <span class="split-number">20h</span>
+        <span class="split-detail">per week on content</span>
+        <span class="split-detail">Burnout trajectory</span>
+      </div>
+      <div class="split-side split-after">
+        <span class="split-label">After</span>
+        <span class="split-number">5h</span>
+        <span class="split-detail">per week, 3X output</span>
+        <span class="split-detail">15 hours freed</span>
+      </div>
+    </div>
+    <div class="insight-card glow reveal-child" style="max-width:600px;">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Same person. Same voice. Same expertise. The only variable that changed was the system underneath.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 23: Velocity Warm Pitch Billboard -->
+<section class="billboard-slide">
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px;">
+    <p class="billboard-text reveal-child" style="max-width:1100px;">What if we built your entire content waterfall <span class="squiggly-underline">for you</span>?</p>
+  </div>
+</section>
+
+<!-- SLIDE 24: Velocity Warm Pitch Detail -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center;">
+    <div class="cta-card reveal-child" style="width:100%;">
+      <p style="font-size:var(--large); font-weight:700; color:var(--white-high); line-height:1.4;">Brand strategy. Content GPS. 200+ hooks in your voice. All of it. In 30 days.</p>
+      <p style="font-size:var(--body); color:var(--white-mid); margin-top:24px;">Book a call with my team to get your content waterfall mapped and built.</p>
+      <a href="#" class="cta-button" style="margin-top:32px; display:inline-block;">[BOOKING LINK PLACEHOLDER]</a>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 25: Homework + Timeline -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Before Session 5</div>
+      <h2 class="subhead reveal-child">Your Homework</h2>
+    </div>
+    <!-- Session Timeline -->
+    <div class="timeline reveal-child">
+      <div class="timeline-line"></div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S1</span>
+      </div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S2</span>
+      </div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S3</span>
+      </div>
+      <div class="timeline-dot-wrap active">
+        <div class="timeline-dot active"></div>
+        <span class="timeline-label" style="color:var(--lime);">S4</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S5</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S6</span>
+      </div>
+    </div>
+    <div class="card reveal-child" style="padding:32px;">
+      <p style="color:var(--white-high); font-size:var(--reading); font-weight:700;">Complete the Content Waterfall Worksheet</p>
+      <p style="color:var(--white-mid); font-size:var(--body); margin-top:8px;">Finish mapping your anchor, all 22+ derivatives, and your automation plan. Bring it to Session 5.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 26: Next Session Preview -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Next Session</div>
+      <h2 class="headline reveal-child">The Distribution Machine</h2>
+      <p class="reading-text reveal-child" style="color:var(--white-mid); margin-top:12px;">Publish, schedule, measure, compound.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="preview-bullet reveal-child">Publishing rhythm and optimal timing</div>
+      <div class="preview-bullet reveal-child">Scheduling systems and batch workflows</div>
+      <div class="preview-bullet reveal-child">Engagement protocol and measurement dashboard</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 27: Closing -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:32px;">
+    <h2 class="display reveal-child">Build the waterfall.</h2>
+    <div class="green-dot pulse reveal-child" style="width:18px; height:18px; margin-top:8px;"></div>
+    <p class="body-text reveal-child" style="color:var(--white-low); margin-top:24px;">The Social Media Machine / Session 04 / Matt Gray</p>
+  </div>
+</section>
+
+<script>
+(function() {
+  var sections = document.querySelectorAll('section');
+  var totalSlides = sections.length;
+  var progressBar = document.getElementById('progressBar');
+  var slideCounter = document.getElementById('slideCounter');
+  var scrollHint = document.getElementById('scrollHint');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+
+    var current = 1;
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.5) {
+        current = i + 1;
+      }
+    }
+    var c = String(current).padStart(2, '0');
+    var t = String(totalSlides).padStart(2, '0');
+    slideCounter.textContent = c + ' / ' + t;
+  }
+
+  var hintHidden = false;
+  function hideHint() {
+    if (!hintHidden && window.scrollY > 100) {
+      scrollHint.style.opacity = '0';
+      hintHidden = true;
+    }
+  }
+
+  // IntersectionObserver for reveals
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // Counter animation
+  function animateCounter(el, target, duration, prefix, suffix) {
+    prefix = prefix || '';
+    suffix = suffix || '';
+    var start = 0;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      start += step;
+      if (start >= target) {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+      }
+    }, 16);
+  }
+
+  // Observe counters
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var target = parseInt(entry.target.dataset.target, 10);
+        var prefix = entry.target.dataset.prefix || '';
+        var suffix = entry.target.dataset.suffix || '';
+        animateCounter(entry.target, target, 2000, prefix, suffix);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter[data-target]').forEach(function(el) {
+    counterObserver.observe(el);
+  });
+
+  // Animate bar fills when visible
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var targetWidth = entry.target.dataset.width || '100%';
+        entry.target.style.width = targetWidth;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(function(el) {
+    barObserver.observe(el);
+  });
+
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    hideHint();
+  }, { passive: true });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var next = Math.min(current + 1, sections.length - 1);
+      sections[next].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var prev = Math.max(current - 1, 0);
+      sections[prev].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>

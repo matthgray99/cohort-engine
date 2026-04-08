@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 02 - Offer Compression | Cash Flow Machine</title>
+<link rel="icon" href="https://cdn.prod.website-files.com/673ff72afe499201ca5b3d58/682b25e288fcb16455c047c1_6502233257c93f97737f04d5_favicon.png" type="image/png">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000000;
+  --dark: #0a0a0a;
+  --dark-card: #111111;
+  --card-border: #1C1C1C;
+  --white: #f5f5f7;
+  --white-high: #ffffff;
+  --white-mid: rgba(245,245,247,0.7);
+  --white-low: rgba(245,245,247,0.4);
+  --lime: #D9FC67;
+  --lime-dim: rgba(217,252,103,0.15);
+  --red: #FF4D4D;
+  --red-dim: rgba(255,77,77,0.15);
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --billboard: clamp(72px, 12vw, 160px);
+  --hero: clamp(64px, 9vw, 120px);
+  --headline: clamp(56px, 7vw, 100px);
+  --subhead: clamp(40px, 4.5vw, 64px);
+  --large: clamp(28px, 3vw, 40px);
+  --reading: clamp(22px, 2.2vw, 28px);
+  --body: clamp(20px, 1.8vw, 24px);
+  --eyebrow: 18px;
+  --small: 15px;
+  --content-width: min(1100px, 82vw);
+  --content-narrow: min(800px, 72vw);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--lime);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.15s ease;
+}
+
+/* Nav watermark */
+.nav-watermark {
+  position: fixed;
+  top: 32px;
+  left: 40px;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-low);
+  z-index: 100;
+  font-weight: 500;
+}
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  bottom: 32px;
+  right: 40px;
+  font-size: var(--small);
+  letter-spacing: 0.15em;
+  color: var(--white-low);
+  z-index: 100;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 100;
+  transition: opacity 0.6s ease;
+}
+.scroll-hint span {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-low);
+}
+.scroll-hint .arrow {
+  width: 1px;
+  height: 24px;
+  background: var(--white-low);
+  animation: pulse-down 2s ease infinite;
+}
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+/* Sections */
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 56px;
+  position: relative;
+}
+
+/* Typography */
+.eyebrow {
+  font-size: var(--eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.billboard-text {
+  font-family: var(--font);
+  font-size: var(--billboard);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--white-high);
+  letter-spacing: -0.05em;
+  text-align: center;
+  max-width: 1200px;
+}
+
+.display {
+  font-family: var(--font);
+  font-size: var(--hero);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.headline {
+  font-family: var(--font);
+  font-size: var(--headline);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.subhead {
+  font-family: var(--font);
+  font-size: var(--subhead);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white-high);
+  letter-spacing: -0.03em;
+}
+
+.large-text {
+  font-family: var(--font);
+  font-size: var(--large);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.reading-text {
+  font-size: var(--reading);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.body-text {
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.small-text {
+  font-size: var(--small);
+  color: var(--white-low);
+  font-weight: 300;
+}
+
+/* Squiggly underline - animated draw from left to right */
+.squiggly-underline {
+  text-decoration: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='12' viewBox='0 0 100 12'%3E%3Cpath d='M0 8 Q12.5 2 25 8 Q37.5 14 50 8 Q62.5 2 75 8 Q87.5 14 100 8' fill='none' stroke='%23D9FC67' stroke-width='3'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-size: 50px 12px;
+  padding-bottom: 8px;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  position: relative;
+}
+/* Mask overlay that slides away to reveal the squiggly */
+.squiggly-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 16px;
+  background: var(--dark);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.5s;
+}
+.visible .squiggly-underline::after,
+.reveal.visible .squiggly-underline::after {
+  width: 0%;
+}
+/* Billboard slides get black bg for mask */
+.billboard-slide .squiggly-underline::after { background: var(--dark); }
+
+/* Billboard slides */
+.billboard-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 80px;
+}
+
+/* Green dot */
+.green-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.green-dot.pulse {
+  animation: dot-pulse 2.5s ease infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217,252,103,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(217,252,103,0); }
+}
+
+/* Cards */
+.card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Glow on accent elements */
+.glow {
+  box-shadow: 0 0 20px rgba(217,252,103,0.15);
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Content containers */
+.content {
+  width: var(--content-width);
+  max-width: 100%;
+}
+
+.content-narrow {
+  width: var(--content-narrow);
+  max-width: 100%;
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible .reveal-child {
+  opacity: 1;
+  transform: none;
+}
+.reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.1s; }
+.reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.2s; }
+.reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.3s; }
+.reveal.visible .reveal-child:nth-child(4) { transition-delay: 0.4s; }
+.reveal.visible .reveal-child:nth-child(5) { transition-delay: 0.5s; }
+
+/* Stat card */
+.stat-card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--lime);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.stat-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Insight card */
+.insight-card {
+  background: var(--lime-dim);
+  border: 1px solid rgba(217,252,103,0.12);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.insight-card:hover {
+  background: rgba(217,252,103,0.2);
+  border-color: rgba(217,252,103,0.2);
+}
+
+/* Framework number - LIME GREEN */
+.framework-number {
+  font-family: var(--font);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 800;
+  color: var(--lime);
+  line-height: 1;
+}
+
+/* Offer Stack Visual */
+.offer-stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+.offer-stack-before {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.5;
+}
+.offer-bar {
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white-high);
+  background: rgba(255,77,77,0.15);
+  border: 1px solid rgba(255,77,77,0.3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .offer-bar { transform: scaleX(1); }
+.visible .offer-bar:nth-child(1) { transition-delay: 0.1s; }
+.visible .offer-bar:nth-child(2) { transition-delay: 0.2s; }
+.visible .offer-bar:nth-child(3) { transition-delay: 0.3s; }
+.visible .offer-bar:nth-child(4) { transition-delay: 0.4s; }
+.visible .offer-bar:nth-child(5) { transition-delay: 0.5s; }
+.offer-bar-focused {
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  background: var(--lime);
+  box-shadow: 0 0 24px rgba(217,252,103,0.2);
+}
+.offer-arrow {
+  flex-shrink: 0;
+}
+
+/* Before/After Split */
+.split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.split-side {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.split-before {
+  background: rgba(255,77,77,0.08);
+  border: 1px solid rgba(255,77,77,0.15);
+  border-radius: 16px 0 0 16px;
+}
+.split-after {
+  background: rgba(217,252,103,0.08);
+  border: 1px solid rgba(217,252,103,0.15);
+  border-radius: 0 16px 16px 0;
+}
+.split-label {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.split-before .split-label { color: var(--red); }
+.split-after .split-label { color: var(--lime); }
+.split-number {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.split-before .split-number { color: rgba(255,77,77,0.8); }
+.split-after .split-number { color: var(--lime); }
+.split-detail {
+  font-size: var(--small);
+  color: var(--white-mid);
+  font-weight: 300;
+}
+
+/* Margin comparison bars */
+.margin-bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.margin-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.margin-bar-label {
+  width: 120px;
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--white-mid);
+  text-align: right;
+  flex-shrink: 0;
+}
+.margin-bar-track {
+  flex: 1;
+  height: 32px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.margin-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.margin-bar-fill.red { background: rgba(255,77,77,0.25); color: var(--red); }
+.margin-bar-fill.lime { background: rgba(217,252,103,0.25); color: var(--lime); }
+
+/* Value equation */
+.equation-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.equation-box {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.equation-box:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+.equation-box .eq-label {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-low);
+  margin-bottom: 6px;
+}
+.equation-box .eq-value {
+  font-size: var(--reading);
+  font-weight: 700;
+  color: var(--white-high);
+}
+.equation-op {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300;
+  color: var(--lime);
+}
+.equation-line {
+  width: 100%;
+  max-width: 500px;
+  height: 2px;
+  background: var(--lime);
+  border-radius: 1px;
+  margin: 4px auto;
+}
+
+/* Animated leak severity bars */
+.leak-severity {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.leak-severity-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--red);
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .leak-severity-fill { width: var(--fill-width, 70%); }
+
+/* Exercise numbered items */
+.exercise-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.exercise-option:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+.exercise-option .option-num {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lime);
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* Preview bullet */
+.preview-bullet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--body);
+  color: var(--white-mid);
+}
+.preview-bullet::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  flex-shrink: 0;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .timeline-line { transform: translateY(-50%) scaleX(1); }
+.timeline-dot-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.15);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s;
+}
+.visible .timeline-dot { transform: scale(1); }
+.visible .timeline-dot-wrap:nth-child(2) .timeline-dot { transition-delay: 0.3s; }
+.visible .timeline-dot-wrap:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
+.visible .timeline-dot-wrap:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
+.visible .timeline-dot-wrap:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
+.visible .timeline-dot-wrap:nth-child(6) .timeline-dot { transition-delay: 1.1s; }
+.visible .timeline-dot-wrap:nth-child(7) .timeline-dot { transition-delay: 1.3s; }
+.timeline-dot.active {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.timeline-dot.complete {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.visible .timeline-dot.active {
+  animation: dot-pulse 2.5s ease 1.5s infinite;
+}
+.timeline-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-low);
+  text-align: center;
+}
+.timeline-dot.active + .timeline-label,
+.timeline-dot-wrap.active .timeline-label {
+  color: var(--lime);
+}
+.timeline-dot.complete + .timeline-label,
+.timeline-dot-wrap.complete .timeline-label {
+  color: var(--lime);
+}
+
+/* Animated counter */
+.counter {
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bar chart fill */
+.bar-fill {
+  width: 0;
+  transition: width 2s cubic-bezier(.16,1,.3,1);
+  border-radius: 4px;
+}
+
+/* Crossout */
+.crossout {
+  text-decoration: line-through;
+  color: var(--white-low);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  section { padding: 80px 24px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .nav-watermark { top: 20px; left: 20px; font-size: 11px; }
+  .slide-counter { bottom: 20px; right: 20px; }
+  .billboard-text { font-size: clamp(40px, 10vw, 80px); }
+  .billboard-slide { padding: 80px 32px; }
+  .split-container { grid-template-columns: 1fr; }
+  .split-before { border-radius: 16px 16px 0 0; }
+  .split-after { border-radius: 0 0 16px 16px; }
+  .offer-stack { flex-direction: column; gap: 20px; }
+  .equation-container { flex-direction: column; }
+  .timeline { flex-wrap: wrap; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-watermark">Founder OS</div>
+<div class="slide-counter" id="slideCounter">01 / 27</div>
+<div class="scroll-hint" id="scrollHint">
+  <span>Scroll</span>
+  <div class="arrow"></div>
+</div>
+
+<!-- SLIDE 1: Title -->
+<section>
+  <div class="content reveal" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:24px;">
+    <div class="eyebrow reveal-child">Cash Flow Machine / Session 02</div>
+    <h1 class="display reveal-child">Offer<br>Compression</h1>
+    <p class="reading-text reveal-child" style="margin-top:8px;">Fewer offers. Higher margins. Less complexity.</p>
+    <div class="green-dot pulse reveal-child" style="margin-top:32px;"></div>
+    <p class="small-text reveal-child" style="margin-top:16px;">Matt Gray / Founder OS</p>
+  </div>
+</section>
+
+<!-- SLIDE 2: Previous Session Recap -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Last Session Recap</div>
+      <h2 class="subhead reveal-child">The Revenue Reset</h2>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Found your Cashflow Constraint</p>
+        <p class="small-text">The single structural bottleneck bleeding your business</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Mapped 4 Revenue Leaks</p>
+        <p class="small-text">Margin, ops, offers, cash cycle</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Identified your Revenue Stage</p>
+        <p class="small-text">The operating model that matches your level</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: The Promise -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">After This Session</div>
+      <p class="large-text reveal-child" style="max-width:800px;">You will have ONE compressed offer with maximum margin and minimum complexity.</p>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Your Value Equation scored</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Offers cut, merged, or raised</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">ONE core offer drafted</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: BILLBOARD SLIDE -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">Every offer you add is a <span class="squiggly-underline">tax</span>. On your time. On your team. On your margin.</p>
+  </div>
+</section>
+
+<!-- SLIDE 5: Framework Overview -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Framework</div>
+      <h2 class="headline reveal-child">The Magnetic Offer</h2>
+    </div>
+    <div class="grid-4 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:16px; text-align:center;">
+        <span class="framework-number">01</span>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:700;">One Core Offer</p>
+        <p class="small-text">Eliminate the product tax</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px; text-align:center;">
+        <span class="framework-number">02</span>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:700;">Premium Pricing</p>
+        <p class="small-text">Charge for transformation, not time</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px; text-align:center;">
+        <span class="framework-number">03</span>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:700;">Clean Delivery</p>
+        <p class="small-text">What you can systematize</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px; text-align:center;">
+        <span class="framework-number">04</span>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:700;">Proof-Driven</p>
+        <p class="small-text">Show the result, not the process</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: Principle 01 - One Core Offer -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">01</span> / Principle</div>
+      <h2 class="subhead reveal-child">One Core Offer</h2>
+    </div>
+    <!-- Offer Stack Visual -->
+    <div class="offer-stack reveal-child">
+      <div class="offer-stack-before">
+        <div class="offer-bar" style="width:160px;">$3K Course</div>
+        <div class="offer-bar" style="width:140px;">$5K DFY</div>
+        <div class="offer-bar" style="width:180px;">$8K Mastermind</div>
+        <div class="offer-bar" style="width:120px;">$500 Workshop</div>
+        <div class="offer-bar" style="width:150px;">$2K Template</div>
+      </div>
+      <div class="offer-arrow">
+        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
+          <path d="M0 12H40M40 12L32 4M40 12L32 20" stroke="#D9FC67" stroke-width="2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="offer-bar-focused" style="width:220px;">$15K Core Offer</div>
+        <p style="font-size:12px; color:var(--lime); font-weight:600; margin-top:8px; text-align:center;">ONE OFFER. MAX MARGIN.</p>
+      </div>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Every product you maintain costs you time, team, and attention. That is the product tax.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: Principle 02 - Premium Pricing -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">02</span> / Principle</div>
+      <h2 class="subhead reveal-child">Premium Pricing</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span class="crossout">Charge per hour</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span class="crossout">Charge per deliverable</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high); font-weight:700;">Charge for the transformation</span></p>
+      </div>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">The client does not buy your process. They buy the distance between where they are and where they want to be.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: Principle 03 - Clean Delivery -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">03</span> / Principle</div>
+      <h2 class="subhead reveal-child">Clean Delivery</h2>
+    </div>
+    <div class="grid-2 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+        <p style="font-size:var(--eyebrow); letter-spacing:0.15em; text-transform:uppercase; color:var(--red); font-weight:700;">Messy</p>
+        <p class="body-text">Custom everything. Every client gets a different experience. You are the delivery bottleneck.</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; border-color:rgba(217,252,103,0.2);">
+        <p style="font-size:var(--eyebrow); letter-spacing:0.15em; text-transform:uppercase; color:var(--lime); font-weight:700;">Clean</p>
+        <p class="body-text">Systematized steps. Repeatable outcomes. Runs without you in the room.</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="color:var(--white-high); font-weight:500; text-align:center;">If you cannot write the delivery process on one page, it is too complex.</p>
+  </div>
+</section>
+
+<!-- SLIDE 9: Principle 04 - Proof-Driven -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">04</span> / Principle</div>
+      <h2 class="subhead reveal-child">Proof-Driven</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Show the result, not the process</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Testimonials that name the transformation</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Specific numbers over vague praise</span></p>
+      </div>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">"I went from $8K months to $42K months in 90 days" sells harder than any sales page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: The Value Equation -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">The Formula</div>
+    <h2 class="headline reveal-child">The Value Equation</h2>
+    <div class="equation-container reveal-child">
+      <div class="equation-box">
+        <div class="eq-label">Problem Urgency</div>
+        <div class="eq-value">How bad is it?</div>
+      </div>
+      <span class="equation-op">&times;</span>
+      <div class="equation-box">
+        <div class="eq-label">Solution Uniqueness</div>
+        <div class="eq-value">Only you?</div>
+      </div>
+      <span class="equation-op">&times;</span>
+      <div class="equation-box">
+        <div class="eq-label">Proof</div>
+        <div class="eq-value">Can you show it?</div>
+      </div>
+    </div>
+    <div class="equation-line reveal-child"></div>
+    <div class="equation-container reveal-child">
+      <div class="equation-box">
+        <div class="eq-label">Alternatives</div>
+        <div class="eq-value">What else exists?</div>
+      </div>
+      <span class="equation-op">&times;</span>
+      <div class="equation-box">
+        <div class="eq-label">Time to Value</div>
+        <div class="eq-value">How fast?</div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="margin-top:16px; max-width:600px;">Maximize the top. Minimize the bottom. That is how you justify premium.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11: The Math - Animated Comparison -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">The Math</div>
+    <h2 class="subhead reveal-child">Same Revenue. Different Life.</h2>
+    <!-- Comparison -->
+    <div class="split-container reveal-child" style="max-width:800px;">
+      <div class="split-side split-before">
+        <span class="split-label">Scattered</span>
+        <span class="split-number counter" data-target="20" data-suffix=" clients">0 clients</span>
+        <span style="font-size:var(--reading); color:rgba(255,77,77,0.8); font-weight:700;">@ $5K each</span>
+        <span class="split-detail">5 offers, 5 delivery systems</span>
+        <span class="split-detail">30% margin</span>
+      </div>
+      <div class="split-side split-after">
+        <span class="split-label">Compressed</span>
+        <span class="split-number counter" data-target="5" data-suffix=" clients">0 clients</span>
+        <span style="font-size:var(--reading); color:var(--lime); font-weight:700;">@ $20K each</span>
+        <span class="split-detail">1 offer, 1 delivery system</span>
+        <span class="split-detail">55% margin</span>
+      </div>
+    </div>
+    <div class="insight-card glow reveal-child" style="max-width:700px;">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;"><strong>$100K revenue either way.</strong> But 5 clients = 75% less delivery overhead.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: Margin Impact Visual -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:48px; align-items:center;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">Margin Impact</div>
+      <h2 class="subhead reveal-child">Fewer Offers. Higher Profit.</h2>
+    </div>
+    <div class="margin-bar-container reveal-child">
+      <div class="margin-bar-row">
+        <span class="margin-bar-label">5 Offers</span>
+        <div class="margin-bar-track">
+          <div class="margin-bar-fill red bar-fill" data-width="30%" style="width:0;">30%</div>
+        </div>
+      </div>
+      <div class="margin-bar-row">
+        <span class="margin-bar-label">3 Offers</span>
+        <div class="margin-bar-track">
+          <div class="margin-bar-fill red bar-fill" data-width="38%" style="width:0;">38%</div>
+        </div>
+      </div>
+      <div class="margin-bar-row">
+        <span class="margin-bar-label">1 Offer</span>
+        <div class="margin-bar-track">
+          <div class="margin-bar-fill lime bar-fill" data-width="55%" style="width:0;">55%</div>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; max-width:600px;">Each offer you eliminate removes a layer of delivery cost, team complexity, and decision fatigue.</p>
+  </div>
+</section>
+
+<!-- SLIDE 13: BILLBOARD SLIDE -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">Simplicity is not the absence of sophistication. It is the <span class="squiggly-underline">result</span> of it.</p>
+  </div>
+</section>
+
+<!-- SLIDE 14: Live Exercise Intro -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Live Exercise</div>
+    <h2 class="headline reveal-child">The Offer Audit</h2>
+    <p class="reading-text reveal-child" style="margin-top:-8px;">4 steps. 30 minutes. One compressed offer.</p>
+    <div class="card glow reveal-child" style="max-width:540px; text-align:left;">
+      <p style="font-size:var(--body); color:var(--white-mid);"><strong style="color:var(--white-high);">You will need:</strong> Your current offer list, pricing, and the worksheet from Session 1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 15: Exercise Step 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 01</span></div>
+      <h2 class="subhead reveal-child">List All Current Offers</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">Every offer. Price. Margin. Write them all down.</p>
+      <div style="background:rgba(255,255,255,0.03); border-radius:10px; padding:20px; margin-top:12px; font-size:var(--small); font-family:var(--font);">
+        <div style="display:grid; grid-template-columns:1fr auto auto; gap:8px 24px; color:var(--white-mid);">
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Offer</span>
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Price</span>
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Margin</span>
+          <span style="color:var(--white-high);">1:1 Coaching</span>
+          <span>$________</span>
+          <span>______%</span>
+          <span style="color:var(--white-high);">Group Program</span>
+          <span>$________</span>
+          <span>______%</span>
+          <span style="color:var(--white-high);">Digital Course</span>
+          <span>$________</span>
+          <span>______%</span>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">If you have more than 3 offers, the product tax is already hurting you.</p>
+  </div>
+</section>
+
+<!-- SLIDE 16: Exercise Step 2 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 02</span></div>
+      <h2 class="subhead reveal-child">Score Against the Value Equation</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">Rate each offer 1-10 on each factor.</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Problem Urgency: How painful is the problem it solves?</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Solution Uniqueness: Can they get this anywhere else?</span></p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> <span style="color:var(--white-high);">Proof: Do you have undeniable results to show?</span></p>
+      </div>
+    </div>
+    <p class="body-text reveal-child">The offer with the highest total score is your candidate for compression.</p>
+  </div>
+</section>
+
+<!-- SLIDE 17: Exercise Step 3 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 03</span></div>
+      <h2 class="subhead reveal-child">Cut, Merge, or Raise</h2>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; text-align:center; border-color:rgba(255,77,77,0.3);">
+        <p style="font-size:clamp(28px, 3vw, 40px); font-weight:800; color:var(--red);">Cut</p>
+        <p class="body-text">Low margin, low score. Kill it.</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; text-align:center; border-color:rgba(245,245,247,0.15);">
+        <p style="font-size:clamp(28px, 3vw, 40px); font-weight:800; color:var(--white-high);">Merge</p>
+        <p class="body-text">Overlap with another. Combine them.</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; text-align:center; border-color:rgba(217,252,103,0.3);">
+        <p style="font-size:clamp(28px, 3vw, 40px); font-weight:800; color:var(--lime);">Raise</p>
+        <p class="body-text">High value, low price. Charge more.</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; color:var(--white-high); font-weight:500;">Go through each offer right now. Decide its fate.</p>
+  </div>
+</section>
+
+<!-- SLIDE 18: Exercise Step 4 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 04</span></div>
+      <h2 class="subhead reveal-child">Draft Your ONE Offer</h2>
+    </div>
+    <div class="card glow reveal-child">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">Offer Name</p>
+          <p style="font-size:var(--reading); color:var(--white-high); font-weight:600;">What do you call it?</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">Price</p>
+          <p style="font-size:var(--reading); color:var(--white-high); font-weight:600;">What is the premium price point?</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">Delivery Model</p>
+          <p style="font-size:var(--reading); color:var(--white-high); font-weight:600;">How do you deliver the transformation?</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">Proof</p>
+          <p style="font-size:var(--reading); color:var(--white-high); font-weight:600;">What result can you guarantee?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 19: Case Study 1 - Ali Abdaal -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Case Study</div>
+      <h2 class="subhead reveal-child">Ali Abdaal: $5M on One Funnel</h2>
+    </div>
+    <p class="body-text reveal-child" style="color:var(--white-high);">Had the audience. Millions of followers. But revenue was fragmented across courses, sponsorships, and low-ticket digital products.</p>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span style="color:var(--lime); font-weight:800; flex-shrink:0; width:24px;">1.</span> Identified ONE core transformation his audience wanted</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span style="color:var(--lime); font-weight:800; flex-shrink:0; width:24px;">2.</span> Built a single premium offer around that transformation</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span style="color:var(--lime); font-weight:800; flex-shrink:0; width:24px;">3.</span> Created one funnel from content to offer</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span style="color:var(--lime); font-weight:800; flex-shrink:0; width:24px;">4.</span> Systematized delivery so it scales without him</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span style="color:var(--lime); font-weight:800; flex-shrink:0; width:24px;">5.</span> $5M funnel. One offer. Clear path.</p>
+      </div>
+    </div>
+    <div class="stat-card glow reveal-child">
+      <p style="font-size:var(--body); color:var(--white-mid);"><span style="color:var(--lime); font-weight:800;">Lesson:</span> He had the audience all along. What he needed was the architecture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 20: Case Study 2 - The Compression Math -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Case Study</div>
+      <h2 class="subhead reveal-child">$100K/Month, 5 Offers to 1</h2>
+    </div>
+    <p class="body-text reveal-child" style="color:var(--white-high);">Founder doing $100K/month spread across 5 different products. Each with different delivery, different support, different systems. Margin: 30%.</p>
+    <div class="split-container reveal-child">
+      <div class="split-side split-before">
+        <span class="split-label">Before</span>
+        <span class="split-number">30%</span>
+        <span class="split-detail">margin</span>
+        <span class="split-detail">5 offers, 5 systems</span>
+      </div>
+      <div class="split-side split-after">
+        <span class="split-label">After</span>
+        <span class="split-number">55%</span>
+        <span class="split-detail">margin</span>
+        <span class="split-detail">1 offer, 1 system</span>
+      </div>
+    </div>
+    <div class="stat-card glow reveal-child">
+      <p style="font-size:var(--body); color:var(--white-mid);"><span style="color:var(--lime); font-weight:800;">Same revenue.</span> Almost double the profit. Half the complexity. That is compression.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 21: BILLBOARD - Key Takeaway -->
+<section class="billboard-slide">
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px;">
+    <p class="billboard-text reveal-child" style="max-width:1000px;">One offer. One audience. One delivery system. Maximum <span class="squiggly-underline">margin</span>.</p>
+  </div>
+</section>
+
+<!-- SLIDE 22: Homework -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Before Session 3</div>
+      <h2 class="subhead reveal-child">Your Homework</h2>
+    </div>
+    <!-- Session Timeline -->
+    <div class="timeline reveal-child">
+      <div class="timeline-line"></div>
+      <div class="timeline-dot-wrap complete">
+        <div class="timeline-dot complete"></div>
+        <span class="timeline-label" style="color:var(--lime);">S1</span>
+      </div>
+      <div class="timeline-dot-wrap active">
+        <div class="timeline-dot active"></div>
+        <span class="timeline-label" style="color:var(--lime);">S2</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S3</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S4</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S5</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S6</span>
+      </div>
+    </div>
+    <div class="card reveal-child" style="padding:32px;">
+      <p style="color:var(--white-high); font-size:var(--reading); font-weight:700;">Complete the Offer Compression Worksheet</p>
+      <p style="color:var(--white-mid); font-size:var(--body); margin-top:8px;">Finalize your ONE compressed offer. Name, price, delivery model, proof. Bring it to Session 3.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 23: Velocity Seed -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">What we just did in 90 minutes took most founders 6 months to figure out alone. Imagine if you didn't have to do it <span class="squiggly-underline">alone</span>.</p>
+  </div>
+</section>
+
+<!-- SLIDE 24: Next Session Preview -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Next Session</div>
+      <h2 class="headline reveal-child">Pricing &amp; Margin Expansion</h2>
+      <p class="reading-text reveal-child" style="color:var(--white-mid); margin-top:12px;">Build toward 50%+ margins.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="preview-bullet reveal-child">50%+ Margin Thinking framework</div>
+      <div class="preview-bullet reveal-child">Payment Terms Architecture (PIF vs plans)</div>
+      <div class="preview-bullet reveal-child">The Pricing Ladder: entry, core, premium</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 25: Closing -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:32px;">
+    <h2 class="display reveal-child">Let's build.</h2>
+    <div class="green-dot pulse reveal-child" style="width:18px; height:18px; margin-top:8px;"></div>
+    <p class="body-text reveal-child" style="color:var(--white-low); margin-top:24px;">The Cash Flow Machine / Session 02 / Matt Gray</p>
+  </div>
+</section>
+
+<script>
+(function() {
+  var sections = document.querySelectorAll('section');
+  var totalSlides = sections.length;
+  var progressBar = document.getElementById('progressBar');
+  var slideCounter = document.getElementById('slideCounter');
+  var scrollHint = document.getElementById('scrollHint');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+
+    var current = 1;
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.5) {
+        current = i + 1;
+      }
+    }
+    var c = String(current).padStart(2, '0');
+    var t = String(totalSlides).padStart(2, '0');
+    slideCounter.textContent = c + ' / ' + t;
+  }
+
+  var hintHidden = false;
+  function hideHint() {
+    if (!hintHidden && window.scrollY > 100) {
+      scrollHint.style.opacity = '0';
+      hintHidden = true;
+    }
+  }
+
+  // IntersectionObserver for reveals
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // Counter animation
+  function animateCounter(el, target, duration, prefix, suffix) {
+    prefix = prefix || '';
+    suffix = suffix || '';
+    var start = 0;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      start += step;
+      if (start >= target) {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+      }
+    }, 16);
+  }
+
+  // Observe counters
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var target = parseInt(entry.target.dataset.target, 10);
+        var prefix = entry.target.dataset.prefix || '';
+        var suffix = entry.target.dataset.suffix || '';
+        animateCounter(entry.target, target, 2000, prefix, suffix);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter[data-target]').forEach(function(el) {
+    counterObserver.observe(el);
+  });
+
+  // Animate bar fills when visible
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var targetWidth = entry.target.dataset.width || '100%';
+        entry.target.style.width = targetWidth;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(function(el) {
+    barObserver.observe(el);
+  });
+
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    hideHint();
+  }, { passive: true });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var next = Math.min(current + 1, sections.length - 1);
+      sections[next].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var prev = Math.max(current - 1, 0);
+      sections[prev].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>

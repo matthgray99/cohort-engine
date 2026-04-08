@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distribution Machine Worksheet | Social Media Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Social Media Machine</div>
+      <div class="ws-title">Distribution Machine Worksheet</div>
+      <div class="ws-subtitle">Build the rhythm. Set the targets. Make distribution automatic.</div>
+    </div>
+    <div class="ws-session">Session 05</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Publishing Rhythm Grid</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Map your weekly publishing schedule. Fill in the content type for each platform on each day.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Platform 1: ________</th>
+          <th>Platform 2: ________</th>
+          <th>Platform 3: ________</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Monday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Tuesday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Wednesday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Thursday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Friday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Saturday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Sunday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+    <div class="field-group">
+      <div class="field-label">Total pieces per week:</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Scheduling Tools Checklist</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Check the tools you currently use. Circle the ones you need to set up.</p>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Scheduling tool</strong> (Buffer, Later, Hootsuite, Metricool, native scheduling)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Content calendar</strong> (Notion, Google Sheets, Airtable, Trello)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Design tool</strong> (Canva, Figma, CapCut, Adobe Express)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Analytics dashboard</strong> (native platform analytics, Metricool, Sprout Social)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Repurposing tool</strong> (Opus Clip, Descript, Castmagic, manual process)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Engagement system</strong> (saved replies, DM automation, comment templates)</div>
+    </div>
+    <div class="field-group" style="margin-top: 16px;">
+      <div class="field-label">Which tool is missing from your stack? What will you set up this week?</div>
+      <div class="field-box"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: 4 Key Metrics with 30-Day Targets</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Set a baseline (where you are now) and a 30-day target for each metric.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Current Baseline</th>
+          <th>30-Day Target</th>
+          <th>How You Will Measure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Impressions / Reach</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Engagement Rate</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Follower Growth</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Leads / DMs / Clicks</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Engagement Protocol</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Distribution does not end at publish. Define your engagement routine.</p>
+    <div class="field-group">
+      <div class="field-label">Daily engagement window (time + duration):</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Response time goal for comments/DMs:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Number of outbound engagements per day (comments on others' posts):</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">DM strategy (who do you DM, what do you say, what is the goal?):</div>
+      <div class="field-box"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Weekly review day (when do you check metrics and adjust?):</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My #1 distribution bottleneck right now is:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">The one change I am making this week to fix it:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">I will batch-create my content on (day): _______ and schedule it by (day): _______</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Distribution system built? What if your content was publishing 24/7?</div>
+    <div class="dfy-cta">Book a call to learn how we build your social media machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

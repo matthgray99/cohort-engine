@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hook Engine Worksheet | Social Media Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.hook-type-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 8px; margin-top: 20px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Social Media Machine</div>
+      <div class="ws-title">The Hook Engine Worksheet</div>
+      <div class="ws-subtitle">Master the first 3 seconds. Write hooks that stop the scroll.</div>
+    </div>
+    <div class="ws-session">Session 03</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts: Hook Anatomy (4 Layers)</div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Pattern Interrupt</strong> - Break the scroll. Say something unexpected, bold, or counterintuitive.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Relevance Signal</strong> - Immediately tell the reader "this is for you." Call out the audience or their problem.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Curiosity Gap</strong> - Open a loop. Create a question in their mind they need answered.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Value Promise</strong> - Tell them what they get if they keep reading, watching, or listening.</div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: The 5 Hook Types</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Write 2 hooks for each type (10 total). Use your own voice, your own topics, your own audience.</p>
+
+    <div class="hook-type-label">Type 1: Contrarian (Challenge a common belief)</div>
+    <p style="font-size: 13px; color: #999; margin-bottom: 12px;">Example: "Posting every day is destroying your brand."</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Hook</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="hook-type-label">Type 2: Outcome-Based (Lead with the result)</div>
+    <p style="font-size: 13px; color: #999; margin-bottom: 12px;">Example: "I grew from 0 to 100K followers in 6 months. Here's the system."</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Hook</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="hook-type-label">Type 3: Question (Force the reader to answer internally)</div>
+    <p style="font-size: 13px; color: #999; margin-bottom: 12px;">Example: "What would change if your content brought in 10 leads per week?"</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Hook</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="hook-type-label">Type 4: Story (Open with a moment of tension or transformation)</div>
+    <p style="font-size: 13px; color: #999; margin-bottom: 12px;">Example: "Last year I almost quit posting. Then one video changed everything."</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Hook</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="hook-type-label">Type 5: List/Framework (Promise a structured takeaway)</div>
+    <p style="font-size: 13px; color: #999; margin-bottom: 12px;">Example: "3 types of content that generate leads (and 2 that waste your time)."</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Hook</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Top 3 Hooks</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Review your scores. Write your 3 highest-scoring hooks here. These are your content starters for this week.</p>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">Best Hook:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Which type? Which pillar does it serve?</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">02</div>
+      <div class="field-group">
+        <div class="field-label">Second Hook:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Which type? Which pillar does it serve?</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">03</div>
+      <div class="field-group">
+        <div class="field-label">Third Hook:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Which type? Which pillar does it serve?</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">GO</div>
+      <div class="field-group">
+        <div class="field-label">This week I will publish content using my top 3 hooks on:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">My weakest hook type (the one I need to practice most):</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">By next session, I will have written _____ new hooks.</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Hooks dialed? Imagine if your entire content engine got the same treatment.</div>
+    <div class="dfy-cta">Book a call to learn how we build your social media machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

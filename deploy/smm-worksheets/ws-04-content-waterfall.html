@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Waterfall Worksheet | Social Media Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Social Media Machine</div>
+      <div class="ws-title">Content Waterfall Worksheet</div>
+      <div class="ws-subtitle">One anchor piece. Ten derivatives. Infinite leverage.</div>
+    </div>
+    <div class="ws-session">Session 04</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Anchor Piece Plan</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Your anchor piece is the ONE long-form content asset you create each week. Everything else flows from it.</p>
+    <div class="field-group">
+      <div class="field-label">Anchor Topic:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Platform (where the anchor lives):</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Format (podcast episode, YouTube video, long-form post, newsletter, live stream):</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Content Pillar this anchor serves:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Key message / thesis of this anchor piece:</div>
+      <div class="field-box"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Derivative Mapping (10 Pieces from 1 Anchor)</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Map 10 derivative pieces from your single anchor. Each one repurposes a different angle, quote, lesson, or moment.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Derivative Piece</th>
+          <th>Platform</th>
+          <th>Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>2</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>3</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>4</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>5</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>6</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>7</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>8</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>9</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>10</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Automation Checklist</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">For each step in your waterfall, decide: do you do it, delegate it, or automate it?</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>You Do It</th>
+          <th>Delegate</th>
+          <th>Automate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Record/write anchor piece</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Edit anchor piece</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Pull key quotes/clips</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Write derivative captions</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Create visuals/graphics</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Schedule posts</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Engage with comments/DMs</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Track performance metrics</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Repurpose top performers</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+    <div class="field-group">
+      <div class="field-label">What is the first task you will delegate or automate this week?</div>
+      <div class="field-box"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My anchor piece this week is about:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">I will create it by (day):</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">I will produce at least _____ derivatives from it by end of week.</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Waterfall mapped? We build it. In 30 days. Trained on your voice.</div>
+    <div class="dfy-cta">Book a call to learn how we build your social media machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

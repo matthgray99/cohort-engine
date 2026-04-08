@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offer Compression Worksheet | Cash Flow Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.concept-card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+.concept-card strong { display: block; margin-bottom: 4px; font-size: 14px; }
+.concept-card span { font-size: 13px; color: #666; }
+
+.decision-row { display: flex; gap: 8px; margin-top: 8px; }
+.decision-tag { border: 1px solid #ccc; border-radius: 4px; padding: 4px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Cash Flow Machine</div>
+      <div class="ws-title">Offer Compression Worksheet</div>
+      <div class="ws-subtitle">Fewer offers. Higher margins. Less complexity.</div>
+    </div>
+    <div class="ws-session">Session 02</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts: Magnetic Offer Framework</div>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <strong>1. Problem Urgency</strong>
+        <span>How badly does your market need this solved right now?</span>
+      </div>
+      <div class="concept-card">
+        <strong>2. Solution Uniqueness</strong>
+        <span>Can they get this anywhere else, or only from you?</span>
+      </div>
+      <div class="concept-card">
+        <strong>3. Proof of Results</strong>
+        <span>Do you have undeniable evidence this works?</span>
+      </div>
+      <div class="concept-card">
+        <strong>4. Speed to Value</strong>
+        <span>How fast do they get the outcome they paid for?</span>
+      </div>
+    </div>
+    <div style="font-size: 14px; color: #666; margin-bottom: 8px;"><strong>Value Equation:</strong> (Problem Urgency x Solution Uniqueness x Proof) / (Alternatives x Time to Value) = Offer Strength</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Current Offer Inventory</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Offer Name</th>
+          <th>Price</th>
+          <th>Margin</th>
+          <th>Delivery Hrs/Client</th>
+          <th>Complexity (1-5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Value Equation Scoring</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Score each offer on a 1-10 scale. Higher is better for Urgency, Uniqueness, and Proof. Lower is better for Alternatives and Time to Value.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Offer</th>
+          <th>Urgency</th>
+          <th>Uniqueness</th>
+          <th>Proof</th>
+          <th>Alternatives</th>
+          <th>Time to Value</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Compression Decision</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">For each offer above, circle one decision:</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Offer Name</th>
+          <th>Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="editable">&nbsp;</td>
+          <td><div class="decision-row"><span class="decision-tag">Keep</span><span class="decision-tag">Merge</span><span class="decision-tag">Cut</span><span class="decision-tag">Raise Price</span></div></td>
+        </tr>
+        <tr>
+          <td class="editable">&nbsp;</td>
+          <td><div class="decision-row"><span class="decision-tag">Keep</span><span class="decision-tag">Merge</span><span class="decision-tag">Cut</span><span class="decision-tag">Raise Price</span></div></td>
+        </tr>
+        <tr>
+          <td class="editable">&nbsp;</td>
+          <td><div class="decision-row"><span class="decision-tag">Keep</span><span class="decision-tag">Merge</span><span class="decision-tag">Cut</span><span class="decision-tag">Raise Price</span></div></td>
+        </tr>
+        <tr>
+          <td class="editable">&nbsp;</td>
+          <td><div class="decision-row"><span class="decision-tag">Keep</span><span class="decision-tag">Merge</span><span class="decision-tag">Cut</span><span class="decision-tag">Raise Price</span></div></td>
+        </tr>
+        <tr>
+          <td class="editable">&nbsp;</td>
+          <td><div class="decision-row"><span class="decision-tag">Keep</span><span class="decision-tag">Merge</span><span class="decision-tag">Cut</span><span class="decision-tag">Raise Price</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Your ONE Compressed Offer</div>
+    <div class="field-group">
+      <div class="field-label">Offer Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Price</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">What is included</div>
+      <div class="field-box large"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Delivery Model</div>
+      <div class="field-box"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Target Margin</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My ONE compressed offer:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Price:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Target margin:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">You just compressed your offer. What if we built the entire content system to sell it?</div>
+    <div class="dfy-cta">Book a call to get your content machine built in 30 days.</div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

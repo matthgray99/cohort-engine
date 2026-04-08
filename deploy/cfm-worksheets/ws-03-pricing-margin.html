@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing &amp; Margin Expansion Worksheet | Cash Flow Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.calc-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.calc-label { font-size: 14px; font-weight: 600; color: #333; min-width: 200px; }
+.calc-field { flex: 1; border: none; border-bottom: 1px dotted #ccc; height: 32px; min-width: 120px; }
+.calc-operator { font-size: 20px; font-weight: 700; color: #999; width: 24px; text-align: center; flex-shrink: 0; }
+.calc-result { border: 2px solid var(--dark); border-radius: 8px; padding: 16px; margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+.calc-result .field-label { margin-bottom: 0; }
+
+.cost-card { border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.cost-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cost-card-num { font-size: 14px; font-weight: 800; color: #fff; background: var(--dark); display: inline-block; padding: 2px 10px; border-radius: 4px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Cash Flow Machine</div>
+      <div class="ws-title">Pricing &amp; Margin Expansion</div>
+      <div class="ws-subtitle">Price for profit. Cut what does not earn. Hit 50%+ margins.</div>
+    </div>
+    <div class="ws-session">Session 03</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts</div>
+    <div style="margin-bottom: 12px;">
+      <strong style="font-size: 15px;">50%+ Margin Thinking</strong>
+      <p style="font-size: 14px; color: #666;">Revenue is vanity. Margin is sanity. If your business does not produce 50%+ true margin after accounting for your time, your pricing or delivery model is broken.</p>
+    </div>
+    <div>
+      <strong style="font-size: 15px;">The Pricing Ladder</strong>
+      <p style="font-size: 14px; color: #666;">Price is not what the market will bear. Price is what your proof commands. More proof = higher price = better clients = higher margin.</p>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: TRUE Margin Calculator</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Most founders overestimate their margin because they do not account for their own time. Let us fix that.</p>
+
+    <div class="calc-row">
+      <div class="calc-label">Monthly Revenue</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-operator">-</div>
+      <div class="calc-label">COGS (direct costs)</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-operator">-</div>
+      <div class="calc-label">Fixed Costs (rent, tools, salaries)</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-operator">-</div>
+      <div class="calc-label">Your Time: $500/hr x ___ hrs/week x 4</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-result">
+      <div class="calc-operator">=</div>
+      <div class="field-label" style="margin-bottom: 0;">TRUE Monthly Margin: $</div>
+      <div class="calc-field"></div>
+      <div class="field-label" style="margin-bottom: 0;">( ___ %)</div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: 50%+ Pricing Model</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 20px;">What price would produce a 50%+ true margin with your current delivery model?</p>
+
+    <div class="calc-row">
+      <div class="calc-label">Total delivery cost per client</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-label">Your time cost per client ($500/hr x hrs)</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-label">Total cost per client</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="calc-result">
+      <div class="field-label" style="margin-bottom: 0;">Price needed for 50% margin (Cost x 2):</div>
+      <div class="calc-field"></div>
+    </div>
+    <div class="field-group" style="margin-top: 24px;">
+      <div class="field-label">Gap between current price and 50% margin price:</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Payment Terms Design</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>PIF Price</th>
+          <th>Discount %</th>
+          <th>Monthly Plan Price</th>
+          <th># Months</th>
+          <th>Total Plan Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: 3 Delivery Costs to Cut</div>
+
+    <div class="cost-card">
+      <div class="cost-card-header">
+        <div class="cost-card-num">01</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Cost Item</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Monthly Amount</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Action: Cut / Systematize / Renegotiate</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Projected Monthly Savings</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <div class="cost-card">
+      <div class="cost-card-header">
+        <div class="cost-card-num">02</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Cost Item</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Monthly Amount</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Action: Cut / Systematize / Renegotiate</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Projected Monthly Savings</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <div class="cost-card">
+      <div class="cost-card-header">
+        <div class="cost-card-num">03</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Cost Item</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Monthly Amount</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Action: Cut / Systematize / Renegotiate</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Projected Monthly Savings</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My new price:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">My new margin target:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">3 costs I am cutting this month:</div>
+        <div class="field-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Your pricing is dialed. Imagine if your content, brand, and sales system were too.</div>
+    <div class="dfy-cta">Book a call to get your entire revenue engine built.</div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

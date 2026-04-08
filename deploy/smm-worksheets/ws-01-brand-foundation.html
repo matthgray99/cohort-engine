@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Foundation Scorecard | Social Media Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.quadrant-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 12px; margin-top: 24px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Social Media Machine</div>
+      <div class="ws-title">Brand Foundation Scorecard</div>
+      <div class="ws-subtitle">Score your brand across 16 dimensions. Find the cracks. Build the foundation.</div>
+    </div>
+    <div class="ws-session">Session 01</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts: The 4 Brand Quadrants</div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Identity</strong> - Who you are, what you stand for, and why anyone should care.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Authority</strong> - Your credibility, proof, and positioning in the market.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Visibility</strong> - How consistently and clearly you show up across platforms.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div><strong>Conversion</strong> - Whether your brand actually drives action, leads, and revenue.</div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Brand Scorecard (16 Dimensions)</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Score each dimension 1-10. Be honest. 1 = nonexistent. 10 = world-class.</p>
+
+    <div class="quadrant-label">Quadrant 1: Identity</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Description</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1. Mission Clarity</td><td>Can you explain what you do and who you serve in one sentence?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>2. Origin Story</td><td>Do you have a compelling founder story that creates emotional connection?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>3. Values Alignment</td><td>Do your public values match your actual behavior and content?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>4. Unique Mechanism</td><td>Do you have a named system, method, or framework that is distinctly yours?</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quadrant-label">Quadrant 2: Authority</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Description</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>5. Social Proof</td><td>Do you have visible testimonials, case studies, or results?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>6. Thought Leadership</td><td>Are you publishing original ideas, not just recycling trends?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>7. Media & Press</td><td>Have you been featured, interviewed, or cited by credible sources?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>8. Expertise Depth</td><td>Does your content demonstrate genuine mastery, not surface-level tips?</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quadrant-label">Quadrant 3: Visibility</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Description</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>9. Platform Presence</td><td>Are you active and consistent on 2-3 platforms?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>10. Content Frequency</td><td>Are you publishing enough content to stay top-of-mind?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>11. Visual Consistency</td><td>Do your visuals, colors, and aesthetic create instant recognition?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>12. Voice Consistency</td><td>Would someone recognize your writing or speaking without seeing your name?</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quadrant-label">Quadrant 4: Conversion</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Description</th>
+          <th>Score (1-10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>13. CTA Clarity</td><td>Does your audience know what to do next after consuming your content?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>14. Lead Capture</td><td>Do you have a system to turn followers into contacts (email, DM, etc.)?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>15. Nurture Sequence</td><td>Do leads receive ongoing value that builds trust toward a purchase?</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>16. Content-to-Revenue</td><td>Can you trace a direct line from a piece of content to a sale?</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Total Score</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Quadrant</th>
+          <th>Subtotal (out of 40)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Identity (Dimensions 1-4)</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Authority (Dimensions 5-8)</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Visibility (Dimensions 9-12)</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Conversion (Dimensions 13-16)</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Total Score</strong></td><td class="editable"><strong>&nbsp; / 160</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 14px; color: #666; margin-bottom: 8px;"><strong>Scoring guide:</strong> 120+ = strong foundation. 80-119 = fixable gaps. Under 80 = brand rebuild territory.</p>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Your 3 Weakest Dimensions</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Circle your 3 lowest scores above. Write them here. These are your brand constraints.</p>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">Weakest Dimension:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why is this low? What evidence do you see?</div>
+        <div class="field-box"></div>
+      </div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">02</div>
+      <div class="field-group">
+        <div class="field-label">Second Weakest Dimension:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why is this low? What evidence do you see?</div>
+        <div class="field-box"></div>
+      </div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">03</div>
+      <div class="field-group">
+        <div class="field-label">Third Weakest Dimension:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why is this low? What evidence do you see?</div>
+        <div class="field-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Brand Positioning Statement</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Fill in each blank. This becomes the foundation for every piece of content you create.</p>
+    <div class="field-group">
+      <div class="field-label">I help [WHO]:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Achieve [WHAT OUTCOME]:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Through [YOUR UNIQUE METHOD/MECHANISM]:</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Unlike [ALTERNATIVE], my approach is different because:</div>
+      <div class="field-box"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Full Positioning Statement (combine the above into one paragraph):</div>
+      <div class="field-box large"></div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Scored your brand? Imagine if we built the entire brand strategy for you in 30 days.</div>
+    <div class="dfy-cta">Book a call to learn how we build your social media machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>
