@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cohort Engine - Curriculum Decks</title>
+  <link rel="icon" href="https://founderos.com/favicon.ico" type="image/x-icon">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #D9FC67; }
+    .header { margin-bottom: 48px; }
+    .title {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: #888;
+      font-weight: 400;
+    }
+    .tabs {
+      display: flex;
+      gap: 32px;
+      border-bottom: 1px solid #222;
+      margin-bottom: 40px;
+    }
+    .tab {
+      padding: 12px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: inherit;
+    }
+    .tab:hover { color: #ccc; }
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #D9FC67;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      display: block;
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      background: #1a1a1a;
+      transform: translateY(-3px);
+      border-color: #2a2a2a;
+    }
+    .card-session {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D9FC67;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-nav">
+      <span class="eyebrow">Founder OS</span>
+      <a href="worksheets.html" class="nav-link">Session Worksheets &rarr;</a>
+    </div>
+    <div class="header">
+      <h1 class="title">Cohort Engine</h1>
+      <p class="subtitle">Curriculum Decks</p>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="cfm">Cash Flow Machine</button>
+      <button class="tab" data-tab="smm">Social Media Machine</button>
+    </div>
+    <div id="cfm" class="tab-content active">
+      <div class="grid">
+        <a href="cfm-decks/session-1-the-revenue-reset.html" class="card">
+          <div class="card-session">Session 1</div>
+          <div class="card-title">The Revenue Reset</div>
+          <div class="card-desc">Define your ONE cash flow constraint</div>
+        </a>
+        <a href="cfm-decks/session-2-offer-compression.html" class="card">
+          <div class="card-session">Session 2</div>
+          <div class="card-title">Offer Compression</div>
+          <div class="card-desc">Fewer offers. Higher margins. Less complexity.</div>
+        </a>
+        <a href="cfm-decks/session-3-pricing-margin-expansion.html" class="card">
+          <div class="card-session">Session 3</div>
+          <div class="card-title">Pricing & Margin Expansion</div>
+          <div class="card-desc">Build toward 50%+ margins</div>
+        </a>
+        <a href="cfm-decks/session-4-the-lead-engine.html" class="card">
+          <div class="card-session">Session 4</div>
+          <div class="card-title">The Lead Engine</div>
+          <div class="card-desc">Predictable lead acquisition that compounds</div>
+        </a>
+        <a href="cfm-decks/session-5-sales-simplification.html" class="card">
+          <div class="card-session">Session 5</div>
+          <div class="card-title">Sales Simplification</div>
+          <div class="card-desc">Shorter cycles. Cleaner close. Less of you required.</div>
+        </a>
+        <a href="cfm-decks/session-6-90-day-execution-plan.html" class="card">
+          <div class="card-session">Session 6</div>
+          <div class="card-title">The 90-Day Execution Plan</div>
+          <div class="card-desc">Three moves. Weekly cadence. Total clarity.</div>
+        </a>
+      </div>
+    </div>
+    <div id="smm" class="tab-content">
+      <div class="grid">
+        <a href="smm-decks/session-1-the-brand-foundation.html" class="card">
+          <div class="card-session">Session 1</div>
+          <div class="card-title">The Brand Foundation</div>
+          <div class="card-desc">Who you are. Who you serve. Why they care.</div>
+        </a>
+        <a href="smm-decks/session-2-the-content-gps.html" class="card">
+          <div class="card-session">Session 2</div>
+          <div class="card-title">The Content GPS</div>
+          <div class="card-desc">Platform strategy. Content pillars. 30-day calendar.</div>
+        </a>
+        <a href="smm-decks/session-3-the-hook-engine.html" class="card">
+          <div class="card-session">Session 3</div>
+          <div class="card-title">The Hook Engine</div>
+          <div class="card-desc">200+ hooks. Your voice. Their attention.</div>
+        </a>
+        <a href="smm-decks/session-4-the-content-waterfall.html" class="card">
+          <div class="card-session">Session 4</div>
+          <div class="card-title">The Content Waterfall</div>
+          <div class="card-desc">1 piece becomes 22+. Never start from zero.</div>
+        </a>
+        <a href="smm-decks/session-5-the-distribution-machine.html" class="card">
+          <div class="card-session">Session 5</div>
+          <div class="card-title">The Distribution Machine</div>
+          <div class="card-desc">Publish, schedule, measure, compound.</div>
+        </a>
+        <a href="smm-decks/session-6-the-90-day-content-plan.html" class="card">
+          <div class="card-session">Session 6</div>
+          <div class="card-title">The 90-Day Content Plan</div>
+          <div class="card-desc">Three moves. Weekly cadence. Content machine running.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
