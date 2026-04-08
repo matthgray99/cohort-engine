@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 05 - Sales Simplification | Cash Flow Machine</title>
+<link rel="icon" href="https://cdn.prod.website-files.com/673ff72afe499201ca5b3d58/682b25e288fcb16455c047c1_6502233257c93f97737f04d5_favicon.png" type="image/png">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000000;
+  --dark: #0a0a0a;
+  --dark-card: #111111;
+  --card-border: #1C1C1C;
+  --white: #f5f5f7;
+  --white-high: #ffffff;
+  --white-mid: rgba(245,245,247,0.7);
+  --white-low: rgba(245,245,247,0.4);
+  --lime: #D9FC67;
+  --lime-dim: rgba(217,252,103,0.15);
+  --red: #FF4D4D;
+  --red-dim: rgba(255,77,77,0.15);
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --billboard: clamp(72px, 12vw, 160px);
+  --hero: clamp(64px, 9vw, 120px);
+  --headline: clamp(56px, 7vw, 100px);
+  --subhead: clamp(40px, 4.5vw, 64px);
+  --large: clamp(28px, 3vw, 40px);
+  --reading: clamp(22px, 2.2vw, 28px);
+  --body: clamp(20px, 1.8vw, 24px);
+  --eyebrow: 18px;
+  --small: 15px;
+  --content-width: min(1100px, 82vw);
+  --content-narrow: min(800px, 72vw);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--lime);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.15s ease;
+}
+
+/* Nav watermark */
+.nav-watermark {
+  position: fixed;
+  top: 32px;
+  left: 40px;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-low);
+  z-index: 100;
+  font-weight: 500;
+}
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  bottom: 32px;
+  right: 40px;
+  font-size: var(--small);
+  letter-spacing: 0.15em;
+  color: var(--white-low);
+  z-index: 100;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 100;
+  transition: opacity 0.6s ease;
+}
+.scroll-hint span {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-low);
+}
+.scroll-hint .arrow {
+  width: 1px;
+  height: 24px;
+  background: var(--white-low);
+  animation: pulse-down 2s ease infinite;
+}
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+/* Sections */
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 56px;
+  position: relative;
+}
+
+/* Typography */
+.eyebrow {
+  font-size: var(--eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.billboard-text {
+  font-family: var(--font);
+  font-size: var(--billboard);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--white-high);
+  letter-spacing: -0.05em;
+  text-align: center;
+  max-width: 1200px;
+}
+
+.display {
+  font-family: var(--font);
+  font-size: var(--hero);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.headline {
+  font-family: var(--font);
+  font-size: var(--headline);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--white-high);
+  letter-spacing: -0.04em;
+}
+
+.subhead {
+  font-family: var(--font);
+  font-size: var(--subhead);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white-high);
+  letter-spacing: -0.03em;
+}
+
+.large-text {
+  font-family: var(--font);
+  font-size: var(--large);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.reading-text {
+  font-size: var(--reading);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.body-text {
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--white-mid);
+}
+
+.small-text {
+  font-size: var(--small);
+  color: var(--white-low);
+  font-weight: 300;
+}
+
+/* Squiggly underline - animated draw from left to right */
+.squiggly-underline {
+  text-decoration: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='12' viewBox='0 0 100 12'%3E%3Cpath d='M0 8 Q12.5 2 25 8 Q37.5 14 50 8 Q62.5 2 75 8 Q87.5 14 100 8' fill='none' stroke='%23D9FC67' stroke-width='3'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-size: 50px 12px;
+  padding-bottom: 8px;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  position: relative;
+}
+/* Mask overlay that slides away to reveal the squiggly */
+.squiggly-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 16px;
+  background: var(--dark);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.5s;
+}
+.visible .squiggly-underline::after,
+.reveal.visible .squiggly-underline::after {
+  width: 0%;
+}
+/* Billboard slides get black bg for mask */
+.billboard-slide .squiggly-underline::after { background: var(--dark); }
+
+/* Billboard slides */
+.billboard-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 80px;
+}
+
+/* Green dot */
+.green-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.green-dot.pulse {
+  animation: dot-pulse 2.5s ease infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217,252,103,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(217,252,103,0); }
+}
+
+/* Cards */
+.card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Glow on accent elements */
+.glow {
+  box-shadow: 0 0 20px rgba(217,252,103,0.15);
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Content containers */
+.content {
+  width: var(--content-width);
+  max-width: 100%;
+}
+
+.content-narrow {
+  width: var(--content-narrow);
+  max-width: 100%;
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible .reveal-child {
+  opacity: 1;
+  transform: none;
+}
+.reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.1s; }
+.reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.2s; }
+.reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.3s; }
+.reveal.visible .reveal-child:nth-child(4) { transition-delay: 0.4s; }
+.reveal.visible .reveal-child:nth-child(5) { transition-delay: 0.5s; }
+
+/* Stat card */
+.stat-card {
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--lime);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.stat-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Insight card */
+.insight-card {
+  background: var(--lime-dim);
+  border: 1px solid rgba(217,252,103,0.12);
+  border-radius: 16px;
+  padding: 32px 36px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.insight-card:hover {
+  background: rgba(217,252,103,0.2);
+  border-color: rgba(217,252,103,0.2);
+}
+
+/* Framework number - LIME GREEN */
+.framework-number {
+  font-family: var(--font);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 800;
+  color: var(--lime);
+  line-height: 1;
+}
+
+/* Before/After Split */
+.split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.split-side {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.split-before {
+  background: rgba(255,77,77,0.08);
+  border: 1px solid rgba(255,77,77,0.15);
+  border-radius: 16px 0 0 16px;
+}
+.split-after {
+  background: rgba(217,252,103,0.08);
+  border: 1px solid rgba(217,252,103,0.15);
+  border-radius: 0 16px 16px 0;
+}
+.split-label {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.split-before .split-label { color: var(--red); }
+.split-after .split-label { color: var(--lime); }
+.split-number {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.split-before .split-number { color: rgba(255,77,77,0.8); }
+.split-after .split-number { color: var(--lime); }
+.split-detail {
+  font-size: var(--small);
+  color: var(--white-mid);
+  font-weight: 300;
+}
+
+/* 90-Day Timeline */
+.timeline {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visible .timeline-line { transform: translateY(-50%) scaleX(1); }
+.timeline-dot-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.15);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s;
+}
+.visible .timeline-dot { transform: scale(1); }
+.visible .timeline-dot-wrap:nth-child(2) .timeline-dot { transition-delay: 0.3s; }
+.visible .timeline-dot-wrap:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
+.visible .timeline-dot-wrap:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
+.visible .timeline-dot-wrap:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
+.visible .timeline-dot-wrap:nth-child(6) .timeline-dot { transition-delay: 1.1s; }
+.visible .timeline-dot-wrap:nth-child(7) .timeline-dot { transition-delay: 1.3s; }
+.timeline-dot.active {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.timeline-dot.completed {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.visible .timeline-dot.active {
+  animation: dot-pulse 2.5s ease 1.5s infinite;
+}
+.timeline-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-low);
+  text-align: center;
+}
+.timeline-dot.active + .timeline-label,
+.timeline-dot-wrap.active .timeline-label {
+  color: var(--lime);
+}
+.timeline-dot.completed + .timeline-label,
+.timeline-dot-wrap.completed .timeline-label {
+  color: var(--lime);
+}
+
+/* Animated counter */
+.counter {
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bar chart fill */
+.bar-fill {
+  width: 0;
+  transition: width 2s cubic-bezier(.16,1,.3,1);
+  border-radius: 4px;
+}
+
+/* Exercise numbered items */
+.exercise-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.exercise-option:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+.exercise-option .option-num {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lime);
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* Preview bullet */
+.preview-bullet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--body);
+  color: var(--white-mid);
+}
+.preview-bullet::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  flex-shrink: 0;
+}
+
+/* Crossout */
+.crossout {
+  text-decoration: line-through;
+  color: var(--white-low);
+}
+
+/* Trust Ladder */
+.trust-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.trust-rung {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  transition: background 0.2s ease;
+  transform: translateX(-40px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, background 0.2s ease;
+}
+.trust-rung:hover { background: rgba(255,255,255,0.06); }
+.trust-rung:first-child { border-radius: 16px 16px 0 0; }
+.trust-rung:last-child { border-radius: 0 0 16px 16px; }
+.visible .trust-rung { transform: translateX(0); opacity: 1; }
+.visible .trust-rung:nth-child(1) { transition-delay: 0.1s; }
+.visible .trust-rung:nth-child(2) { transition-delay: 0.3s; }
+.visible .trust-rung:nth-child(3) { transition-delay: 0.5s; }
+
+/* Process flow */
+.process-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+}
+.process-step {
+  flex: 1;
+  padding: 28px 20px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s ease;
+}
+.process-step:hover { background: rgba(255,255,255,0.06); }
+.process-step:first-child { border-radius: 16px 0 0 16px; }
+.process-step:last-child { border-radius: 0 16px 16px 0; }
+.process-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgba(217,252,103,0.3);
+  z-index: 2;
+}
+.process-step.eliminated {
+  opacity: 0.3;
+  background: rgba(255,77,77,0.05);
+  border-color: rgba(255,77,77,0.15);
+}
+.process-step.eliminated::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--red);
+  transform: translateY(-50%);
+  z-index: 3;
+}
+.process-number {
+  font-size: var(--eyebrow);
+  letter-spacing: 0.2em;
+  color: var(--lime);
+  font-weight: 800;
+}
+.process-label {
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 700;
+  color: var(--white-high);
+}
+.process-desc {
+  font-size: var(--small);
+  color: var(--white-mid);
+  line-height: 1.4;
+  font-weight: 300;
+}
+
+/* Content-to-close mapping */
+.content-map {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.content-map-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+.content-map-stage {
+  padding: 20px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+.content-map-stage:hover { background: rgba(255,255,255,0.06); }
+.content-map-arrow {
+  color: var(--lime);
+  flex-shrink: 0;
+}
+
+/* CTA card */
+.cta-card {
+  background: var(--lime-dim);
+  border: 2px solid rgba(217,252,103,0.25);
+  border-radius: 20px;
+  padding: 48px;
+  text-align: center;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cta-card:hover {
+  background: rgba(217,252,103,0.2);
+  border-color: rgba(217,252,103,0.4);
+  box-shadow: 0 0 40px rgba(217,252,103,0.15);
+}
+.cta-button {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--dark);
+  font-family: var(--font);
+  font-size: var(--body);
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(217,252,103,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  section { padding: 80px 24px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .nav-watermark { top: 20px; left: 20px; font-size: 11px; }
+  .slide-counter { bottom: 20px; right: 20px; }
+  .billboard-text { font-size: clamp(40px, 10vw, 80px); }
+  .billboard-slide { padding: 80px 32px; }
+  .split-container { grid-template-columns: 1fr; }
+  .split-before { border-radius: 16px 16px 0 0; }
+  .split-after { border-radius: 0 0 16px 16px; }
+  .process-flow { flex-direction: column; }
+  .process-step { border-radius: 0 !important; }
+  .process-step:first-child { border-radius: 16px 16px 0 0 !important; }
+  .process-step:last-child { border-radius: 0 0 16px 16px !important; }
+  .process-step:not(:last-child)::after { display: none; }
+  .content-map-row { grid-template-columns: 1fr; gap: 8px; }
+  .content-map-arrow { transform: rotate(90deg); }
+  .timeline { flex-wrap: wrap; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-watermark">Founder OS</div>
+<div class="slide-counter" id="slideCounter">01 / 30</div>
+<div class="scroll-hint" id="scrollHint">
+  <span>Scroll</span>
+  <div class="arrow"></div>
+</div>
+
+<!-- SLIDE 1: Title -->
+<section>
+  <div class="content reveal" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:24px;">
+    <div class="eyebrow reveal-child">Cash Flow Machine / Session 05</div>
+    <h1 class="display reveal-child">Sales<br>Simplification</h1>
+    <p class="reading-text reveal-child" style="margin-top:8px;">Shorter cycles. Cleaner close. Less of you required.</p>
+    <div class="green-dot pulse reveal-child" style="margin-top:32px;"></div>
+    <p class="small-text reveal-child" style="margin-top:16px;">Matt Gray / Founder OS</p>
+  </div>
+</section>
+
+<!-- SLIDE 2: Session 4 Recap -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Session 4 Recap</div>
+      <h2 class="subhead reveal-child">What We Built Last Time</h2>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Mapped all lead sources and scored each on volume, quality, cost, control</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Identified your #1 underleveraged channel</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Drafted a 30-day content plan for that channel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: The Promise -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">After This Session</div>
+      <p class="large-text reveal-child" style="max-width:800px;">Your sales process will be shorter, cleaner, and require less of your time.</p>
+    </div>
+    <div class="grid-3 reveal-child">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Content CEO Playbook installed</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Sales process audited and simplified</p>
+      </div>
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="green-dot"></div>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">3 warm-up content pieces designed</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: BILLBOARD -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">If your content cannot sell your offer, your offer has a <span class="squiggly-underline">clarity</span> problem.</p>
+  </div>
+</section>
+
+<!-- SLIDE 5: The Key Insight -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">The Insight</div>
+    <p class="large-text reveal-child" style="max-width:800px;">The reason your sales cycle is long is not because your closer is bad. It is because your content is not warming the lead.</p>
+    <div class="insight-card glow reveal-child" style="max-width:700px;">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">You are selling on calls what your content should be selling for free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: Core Framework Intro -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Framework</div>
+      <h2 class="headline reveal-child">The Content CEO Playbook</h2>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; max-width:700px; margin:0 auto;">Four principles that turn your content into your best salesperson.</p>
+  </div>
+</section>
+
+<!-- SLIDE 7: Principle 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">01</span> / Principle</div>
+      <h2 class="subhead reveal-child">Content Warms the Lead</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Your content does the selling before the call</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> By the time someone books, they already trust you</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> The call becomes confirmation, not persuasion</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Cold leads need 4 calls. Warm leads need 1.</p>
+  </div>
+</section>
+
+<!-- SLIDE 8: The Trust Ladder -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">02</span> / Principle</div>
+      <h2 class="subhead reveal-child">The Trust Ladder</h2>
+    </div>
+    <div class="trust-ladder reveal-child">
+      <div class="trust-rung">
+        <span class="framework-number" style="font-size:48px;">01</span>
+        <div style="flex:1;">
+          <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Awareness</h3>
+          <p style="font-size:var(--small); color:var(--white-mid);">Short-form content, hooks, viral clips. They know you exist.</p>
+        </div>
+      </div>
+      <div class="trust-rung">
+        <span class="framework-number" style="font-size:48px;">02</span>
+        <div style="flex:1;">
+          <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Consideration</h3>
+          <p style="font-size:var(--small); color:var(--white-mid);">Long-form content, newsletters, case studies. They trust your expertise.</p>
+        </div>
+      </div>
+      <div class="trust-rung">
+        <span class="framework-number" style="font-size:48px;">03</span>
+        <div style="flex:1;">
+          <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Decision</h3>
+          <p style="font-size:var(--small); color:var(--white-mid);">Testimonials, results, direct CTAs. They are ready to buy.</p>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; max-width:600px; margin:0 auto;">Most founders only create awareness content, then wonder why nobody buys.</p>
+  </div>
+</section>
+
+<!-- SLIDE 9: Principle 3 - Sales Process Audit -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">03</span> / Principle</div>
+      <h2 class="subhead reveal-child">Sales Process Audit</h2>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Where are calls too long, too many, or unnecessary? Every extra touchpoint is friction that kills deals.</p>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> How many touches from first contact to close?</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Which steps exist because of low trust, not low intent?</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> What are you saying on calls that content could say better?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: Sales Process Before/After -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Simplification</div>
+      <h2 class="subhead reveal-child">Before vs After</h2>
+    </div>
+    <!-- Before: 4 steps -->
+    <div style="display:flex; flex-direction:column; gap:24px;" class="reveal-child">
+      <p style="font-size:var(--small); color:var(--red); font-weight:800; letter-spacing:0.2em; text-transform:uppercase;">Before: 4 Calls</p>
+      <div class="process-flow">
+        <div class="process-step">
+          <span class="process-number">01</span>
+          <span class="process-label">Discovery</span>
+          <span class="process-desc">45 min</span>
+        </div>
+        <div class="process-step">
+          <span class="process-number">02</span>
+          <span class="process-label">Follow-Up</span>
+          <span class="process-desc">30 min</span>
+        </div>
+        <div class="process-step">
+          <span class="process-number">03</span>
+          <span class="process-label">Proposal</span>
+          <span class="process-desc">45 min</span>
+        </div>
+        <div class="process-step">
+          <span class="process-number">04</span>
+          <span class="process-label">Close</span>
+          <span class="process-desc">30 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- After: 1 step -->
+    <div style="display:flex; flex-direction:column; gap:24px;" class="reveal-child">
+      <p style="font-size:var(--small); color:var(--lime); font-weight:800; letter-spacing:0.2em; text-transform:uppercase;">After: 1 Call</p>
+      <div class="process-flow" style="max-width:280px;">
+        <div class="process-step" style="border-radius:16px; border-left:3px solid var(--lime);">
+          <span class="process-number">01</span>
+          <span class="process-label">Close</span>
+          <span class="process-desc">30 min</span>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="text-align:center; max-width:600px; margin:0 auto;">Content handled discovery, follow-up, and the proposal. The call is just confirmation.</p>
+  </div>
+</section>
+
+<!-- SLIDE 11: Principle 4 - The One-Call Close -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">04</span> / Principle</div>
+      <h2 class="subhead reveal-child">The One-Call Close</h2>
+    </div>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">When content does its job, you need fewer calls. The best sales process is the one that barely feels like sales.</p>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Content answers objections before the call</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Case studies prove results before the pitch</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> The call is 80% listening, 20% confirming fit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: BILLBOARD -->
+<section class="billboard-slide">
+  <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
+    <p class="billboard-text reveal-child">Stop trying to close harder. Start letting your content close <span class="squiggly-underline">softer</span>.</p>
+  </div>
+</section>
+
+<!-- SLIDE 13: Content-to-Close Mapping -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div style="text-align:center;">
+      <div class="eyebrow reveal-child">The Map</div>
+      <h2 class="subhead reveal-child">Content to Close Flow</h2>
+    </div>
+    <div class="content-map reveal-child" style="max-width:700px; margin:0 auto;">
+      <div class="content-map-row">
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:800; letter-spacing:0.15em; text-transform:uppercase;">Awareness</p>
+          <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-top:8px;">Short-form hooks</p>
+          <p style="font-size:var(--small); color:var(--white-mid); margin-top:4px;">Reels, tweets, clips</p>
+        </div>
+        <div class="content-map-arrow">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none">
+            <path d="M0 8H28M28 8L22 2M28 8L22 14" stroke="#D9FC67" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--white-low); font-weight:600;">They discover you</p>
+        </div>
+      </div>
+      <div class="content-map-row">
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:800; letter-spacing:0.15em; text-transform:uppercase;">Consideration</p>
+          <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-top:8px;">Long-form deep dives</p>
+          <p style="font-size:var(--small); color:var(--white-mid); margin-top:4px;">YouTube, newsletters, podcasts</p>
+        </div>
+        <div class="content-map-arrow">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none">
+            <path d="M0 8H28M28 8L22 2M28 8L22 14" stroke="#D9FC67" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--white-low); font-weight:600;">They trust you</p>
+        </div>
+      </div>
+      <div class="content-map-row">
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--lime); font-weight:800; letter-spacing:0.15em; text-transform:uppercase;">Decision</p>
+          <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-top:8px;">Case studies + CTAs</p>
+          <p style="font-size:var(--small); color:var(--white-mid); margin-top:4px;">Results, testimonials, invitations</p>
+        </div>
+        <div class="content-map-arrow">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none">
+            <path d="M0 8H28M28 8L22 2M28 8L22 14" stroke="#D9FC67" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="content-map-stage">
+          <p style="font-size:var(--small); color:var(--white-low); font-weight:600;">They buy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14: Live Exercise Intro -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Live Exercise</div>
+    <h2 class="headline reveal-child">Open Your Worksheet</h2>
+    <p class="reading-text reveal-child" style="margin-top:-8px;">The Sales Simplification Audit</p>
+    <p class="body-text reveal-child" style="max-width:640px;">20 minutes. Audit your process. Design your content. Simplify everything.</p>
+    <div class="card glow reveal-child" style="max-width:540px; text-align:left;">
+      <p style="font-size:var(--body); color:var(--white-mid);"><strong style="color:var(--white-high);">You will need:</strong> Your current sales process mapped out, your close rate, and your average sales cycle length.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 15: Exercise Step 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 01</span></div>
+      <h2 class="subhead reveal-child">Map Your Current Sales Process</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">How many touches from lead to close? List every step.</p>
+      <div style="background:rgba(255,255,255,0.03); border-radius:10px; padding:20px; margin-top:12px; font-size:var(--small); font-family:var(--font);">
+        <div style="display:grid; grid-template-columns:auto 1fr auto; gap:8px 24px; color:var(--white-mid);">
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Step</span>
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Description</span>
+          <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Time</span>
+          <span style="color:var(--lime); font-weight:800;">1</span>
+          <span style="color:var(--white-high);">___________________</span>
+          <span>___ min</span>
+          <span style="color:var(--lime); font-weight:800;">2</span>
+          <span style="color:var(--white-high);">___________________</span>
+          <span>___ min</span>
+          <span style="color:var(--lime); font-weight:800;">3</span>
+          <span style="color:var(--white-high);">___________________</span>
+          <span>___ min</span>
+          <span style="color:var(--lime); font-weight:800;">4</span>
+          <span style="color:var(--white-high);">___________________</span>
+          <span>___ min</span>
+        </div>
+      </div>
+    </div>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Total time from first touch to close: ___ hours.</p>
+  </div>
+</section>
+
+<!-- SLIDE 16: Exercise Step 2 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 02</span></div>
+      <h2 class="subhead reveal-child">Identify What Content Could Replace</h2>
+    </div>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; line-height:1.6; font-size:var(--body);">For each step, ask: could a piece of content do this instead?</p>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Discovery call = deep-dive YouTube video</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Follow-up = automated email sequence</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Proposal review = case study landing page</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Objection handling = FAQ content series</p>
+      </div>
+    </div>
+    <p class="body-text reveal-child">Circle every step that content could handle. Those are your cuts.</p>
+  </div>
+</section>
+
+<!-- SLIDE 17: Exercise Step 3 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 03</span></div>
+      <h2 class="subhead reveal-child">Design 3 Pieces of Warm-Up Content</h2>
+    </div>
+    <div class="card reveal-child">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="exercise-option">
+          <span class="option-num">1</span>
+          <div>
+            <p style="color:var(--white-high); font-size:var(--body);"><strong>Objection Killer:</strong></p>
+            <p style="color:var(--white-mid); font-size:var(--body);">What is the #1 reason people do not buy? Create content that answers it.</p>
+          </div>
+        </div>
+        <div class="exercise-option">
+          <span class="option-num">2</span>
+          <div>
+            <p style="color:var(--white-high); font-size:var(--body);"><strong>Proof Piece:</strong></p>
+            <p style="color:var(--white-mid); font-size:var(--body);">A case study or transformation story that proves your system works.</p>
+          </div>
+        </div>
+        <div class="exercise-option">
+          <span class="option-num">3</span>
+          <div>
+            <p style="color:var(--white-high); font-size:var(--body);"><strong>Vision Piece:</strong></p>
+            <p style="color:var(--white-mid); font-size:var(--body);">Content that paints the picture of what life looks like after working with you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 18: Exercise Step 4 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 04</span></div>
+    <h2 class="subhead reveal-child">Simplify: Minimum Viable Sales Process</h2>
+    <div class="card glow reveal-child" style="max-width:600px;">
+      <p style="color:var(--white-high); font-size:var(--reading); line-height:1.6;">What is the fewest number of steps needed to close?</p>
+      <p style="color:var(--white-mid); font-style:italic; margin-top:12px; font-size:var(--body);">Write your simplified process. If it is more than 2 steps, ask why.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 19: Case Study 1 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Case Study</div>
+      <h2 class="subhead reveal-child">4 Calls to 1 Call.<br>22% to 41% Close Rate.</h2>
+    </div>
+    <p class="body-text reveal-child" style="color:var(--white-high);">A founder running a 4-call sales cycle with a 22% close rate. Published 3 case study videos. Each one addressed the top objections his buyers had.</p>
+    <div class="split-container reveal-child">
+      <div class="split-side split-before">
+        <span class="split-label">Before</span>
+        <span class="split-number">22%</span>
+        <span class="split-detail">close rate</span>
+        <span class="split-detail">4-call process</span>
+      </div>
+      <div class="split-side split-after">
+        <span class="split-label">After</span>
+        <span class="split-number">41%</span>
+        <span class="split-detail">close rate</span>
+        <span class="split-detail">1-call process</span>
+      </div>
+    </div>
+    <div class="stat-card glow reveal-child">
+      <p style="font-size:var(--body); color:var(--white-mid);"><span style="color:var(--lime); font-weight:800;">The fix:</span> 3 case study videos replaced discovery, follow-up, and proposal calls. Content did the selling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 20: Case Study 2 -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Case Study</div>
+    <h2 class="subhead reveal-child">Matt's System:<br>Content Sells 90%</h2>
+    <p class="body-text reveal-child" style="max-width:600px;">My content does 90% of the selling. By the time someone gets on a call with my team, they already trust me. They already understand the system.</p>
+    <div class="insight-card glow reveal-child" style="max-width:600px;">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">The call is confirmation, not persuasion. That is the difference between a 20% close rate and a 50% close rate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 21: Velocity Warm Pitch Billboard -->
+<section class="billboard-slide">
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px;">
+    <p class="billboard-text reveal-child" style="max-width:1100px;">You now have the sales framework. The question isn't whether it works. It is who is going to <span class="squiggly-underline">implement</span> it.</p>
+  </div>
+</section>
+
+<!-- SLIDE 22: Velocity Overview -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">Velocity</div>
+    <h2 class="subhead reveal-child">6 Months. My C-Suite Team.<br>We Build 80%. You Add Your 20%.</h2>
+    <div class="grid-2 reveal-child" style="max-width:700px;">
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; text-align:left;">
+        <p style="font-size:var(--small); color:var(--lime); font-weight:800; letter-spacing:0.15em; text-transform:uppercase;">We Build</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Brand strategy</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Content GPS</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> 200+ hooks in your voice</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Full sales funnel</p>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; text-align:left;">
+        <p style="font-size:var(--small); color:var(--white-mid); font-weight:800; letter-spacing:0.15em; text-transform:uppercase;">You Add</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Your expertise</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Your voice</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Your face on camera</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> 20% of the effort</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 23: Velocity CTA -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center;">
+    <div class="cta-card reveal-child" style="width:100%;">
+      <p style="font-size:var(--large); font-weight:700; color:var(--white-high); line-height:1.4;">Everything you learned in these 5 sessions, installed for you. In 30 days.</p>
+      <p style="font-size:var(--body); color:var(--white-mid); margin-top:24px;">Book a call with my team. Let's map out what your content engine looks like.</p>
+      <a href="#" class="cta-button" style="margin-top:32px; display:inline-block;">[BOOKING LINK PLACEHOLDER]</a>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 24: Key Takeaway -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
+    <div class="eyebrow reveal-child">The Takeaway</div>
+    <p class="large-text reveal-child" style="max-width:700px;">Your sales process is only as long as your content is weak. Fix the content, simplify the close.</p>
+    <div class="reveal-child" style="display:flex; align-items:center; gap:24px; margin-top:16px;">
+      <span class="crossout" style="font-size:var(--reading);">Close Harder</span>
+      <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
+        <path d="M0 6H36M36 6L30 1M36 6L30 11" stroke="#D9FC67" stroke-width="1.5"/>
+      </svg>
+      <span style="font-size:var(--reading); color:var(--white-high); font-weight:700;">Let Content Close For You</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 25: Homework + Timeline -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:48px;">
+    <div>
+      <div class="eyebrow reveal-child">Before Session 6</div>
+      <h2 class="subhead reveal-child">Your Homework</h2>
+    </div>
+    <!-- Session Timeline -->
+    <div class="timeline reveal-child">
+      <div class="timeline-line"></div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S1</span>
+      </div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S2</span>
+      </div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S3</span>
+      </div>
+      <div class="timeline-dot-wrap completed">
+        <div class="timeline-dot completed"></div>
+        <span class="timeline-label" style="color:var(--lime);">S4</span>
+      </div>
+      <div class="timeline-dot-wrap active">
+        <div class="timeline-dot active"></div>
+        <span class="timeline-label" style="color:var(--lime);">S5</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S6</span>
+      </div>
+    </div>
+    <div class="card reveal-child" style="padding:32px;">
+      <p style="color:var(--white-high); font-size:var(--reading); font-weight:700;">Complete the Sales Simplification Worksheet</p>
+      <p style="color:var(--white-mid); font-size:var(--body); margin-top:8px;">Finalize your simplified sales process and create your 3 warm-up content pieces. Bring them to Session 6.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 26: Next Session Preview -->
+<section>
+  <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
+    <div>
+      <div class="eyebrow reveal-child">Next Session</div>
+      <h2 class="headline reveal-child">90-Day Execution Plan</h2>
+      <p class="reading-text reveal-child" style="color:var(--white-mid); margin-top:12px;">Your roadmap, your team, your weekly cadence.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="preview-bullet reveal-child">The 90-Day Execution Framework</div>
+      <div class="preview-bullet reveal-child">Building your weekly operating rhythm</div>
+      <div class="preview-bullet reveal-child">Velocity: full conversion opportunity</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 27: Closing -->
+<section>
+  <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:32px;">
+    <h2 class="display reveal-child">Simplify the close.</h2>
+    <div class="green-dot pulse reveal-child" style="width:18px; height:18px; margin-top:8px;"></div>
+    <p class="body-text reveal-child" style="color:var(--white-low); margin-top:24px;">The Cash Flow Machine / Session 05 / Matt Gray</p>
+  </div>
+</section>
+
+<script>
+(function() {
+  var sections = document.querySelectorAll('section');
+  var totalSlides = sections.length;
+  var progressBar = document.getElementById('progressBar');
+  var slideCounter = document.getElementById('slideCounter');
+  var scrollHint = document.getElementById('scrollHint');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+
+    var current = 1;
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.5) {
+        current = i + 1;
+      }
+    }
+    var c = String(current).padStart(2, '0');
+    var t = String(totalSlides).padStart(2, '0');
+    slideCounter.textContent = c + ' / ' + t;
+  }
+
+  var hintHidden = false;
+  function hideHint() {
+    if (!hintHidden && window.scrollY > 100) {
+      scrollHint.style.opacity = '0';
+      hintHidden = true;
+    }
+  }
+
+  // IntersectionObserver for reveals
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // Counter animation
+  function animateCounter(el, target, duration, prefix, suffix) {
+    prefix = prefix || '';
+    suffix = suffix || '';
+    var start = 0;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      start += step;
+      if (start >= target) {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+      }
+    }, 16);
+  }
+
+  // Observe counters
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var target = parseInt(entry.target.dataset.target, 10);
+        var prefix = entry.target.dataset.prefix || '';
+        var suffix = entry.target.dataset.suffix || '';
+        animateCounter(entry.target, target, 2000, prefix, suffix);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter[data-target]').forEach(function(el) {
+    counterObserver.observe(el);
+  });
+
+  // Animate bar fills when visible
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var targetWidth = entry.target.dataset.width || '100%';
+        entry.target.style.width = targetWidth;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(function(el) {
+    barObserver.observe(el);
+  });
+
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    hideHint();
+  }, { passive: true });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var next = Math.min(current + 1, sections.length - 1);
+      sections[next].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) {
+          current = i;
+        }
+      }
+      var prev = Math.max(current - 1, 0);
+      sections[prev].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>
