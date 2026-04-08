@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day Content Plan Worksheet | Social Media Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.notes-lines { display: flex; flex-direction: column; gap: 28px; padding-top: 16px; }
+.note-line { border-bottom: 1px solid #eee; height: 1px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Social Media Machine</div>
+      <div class="ws-title">90-Day Content Plan</div>
+      <div class="ws-subtitle">Three moves. Twelve weeks. One machine that runs without you.</div>
+    </div>
+    <div class="ws-session">Session 06</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="field-group">
+      <div class="field-label">Participant Name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Date</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: The 3 Content Moves</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Every content machine runs on three levers: Volume, Quality, and Team. Set milestones for each.</p>
+
+    <div class="action-card">
+      <div class="action-num">V</div>
+      <div style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Move 1: Volume</div>
+      <p style="font-size: 14px; color: #666; margin-bottom: 16px;">How much content are you producing? Volume creates data. Data creates clarity.</p>
+      <table class="ws-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <th>Week 4</th>
+            <th>Week 8</th>
+            <th>Week 12</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Posts per week</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Platforms active</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Anchor pieces per month</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Derivatives per anchor</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="action-card">
+      <div class="action-num">Q</div>
+      <div style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Move 2: Quality</div>
+      <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Better hooks, stronger storytelling, sharper visuals. Quality compounds over time.</p>
+      <table class="ws-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <th>Week 4</th>
+            <th>Week 8</th>
+            <th>Week 12</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Avg. engagement rate target</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Hook library size</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Content pillars refined to</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Top-performing format identified</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="action-card">
+      <div class="action-num">T</div>
+      <div style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Move 3: Team</div>
+      <p style="font-size: 14px; color: #666; margin-bottom: 16px;">You cannot scale content alone. The machine needs people or systems behind it.</p>
+      <table class="ws-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <th>Week 4</th>
+            <th>Week 8</th>
+            <th>Week 12</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tasks delegated</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Tools automated</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>First hire / contractor</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+          <tr><td>Hours you spend on content/week</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Monthly Output Targets</div>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Output</th>
+          <th>Month 1</th>
+          <th>Month 2</th>
+          <th>Month 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Total pieces published</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Anchor pieces</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Leads generated from content</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>New followers (net)</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>Revenue attributed to content</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: First Hire / Delegation Plan</div>
+    <div class="field-group">
+      <div class="field-label">What is the first content role you need to fill (editor, designer, writer, scheduler)?</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">What tasks will this person own?</div>
+      <div class="field-box"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Budget (monthly):</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Hire by (date):</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Weekly Cadence Grid</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Define your weekly content rhythm. This is your operating system for the next 90 days.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Activity</th>
+          <th>Time Block</th>
+          <th>Owner (You / Team)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Monday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Tuesday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Wednesday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Thursday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Friday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Saturday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td><strong>Sunday</strong></td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">90</div>
+      <div class="field-group">
+        <div class="field-label">In 90 days, my content machine will produce _____ pieces/week across _____ platforms.</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">The single biggest change I am making starting this week:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">My accountability partner from this cohort:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">You have the plan. We have the team. Book a call to get your content machine built.</div>
+    <div class="dfy-cta">Book a call to learn how we build your social media machine.</div>
+  </div>
+
+  <div class="ws-section" style="margin-top: 48px;">
+    <div class="ws-section-title">Notes</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>
