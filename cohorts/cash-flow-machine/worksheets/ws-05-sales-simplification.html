@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Simplification Worksheet | Cash Flow Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.objection-card { border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.objection-num { font-size: 14px; font-weight: 800; color: #fff; background: var(--dark); display: inline-block; padding: 2px 10px; border-radius: 4px; margin-bottom: 12px; }
+
+.trust-ladder { display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; }
+.trust-step { display: flex; align-items: center; gap: 16px; padding: 10px 16px; border: 1px solid #ddd; font-size: 14px; }
+.trust-step:first-child { border-radius: 8px 8px 0 0; }
+.trust-step:last-child { border-radius: 0 0 8px 8px; }
+.trust-step + .trust-step { border-top: none; }
+.trust-icon { font-size: 13px; font-weight: 800; color: #fff; background: var(--dark); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; }
+
+.yn-row { display: flex; gap: 8px; margin-top: 4px; }
+.yn-tag { border: 1px solid #ccc; border-radius: 4px; padding: 2px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+
+.step-card { border: 2px solid var(--dark); border-radius: 12px; padding: 20px; margin-bottom: 16px; text-align: center; }
+.step-num { font-size: 14px; font-weight: 800; color: #fff; background: var(--dark); display: inline-block; padding: 2px 10px; border-radius: 4px; margin-bottom: 8px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Cash Flow Machine</div>
+      <div class="ws-title">Sales Simplification Worksheet</div>
+      <div class="ws-subtitle">Let content do the selling. Eliminate every unnecessary step.</div>
+    </div>
+    <div class="ws-session">Session 05</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts</div>
+    <div style="margin-bottom: 16px;">
+      <strong style="font-size: 15px;">Content CEO Playbook</strong>
+      <p style="font-size: 14px; color: #666;">Your content should do 80% of the selling before a prospect ever talks to your team. Every post, video, and email is a sales rep that works 24/7.</p>
+    </div>
+    <div class="ws-section-title" style="margin-top: 24px;">Trust Ladder</div>
+    <div class="trust-ladder">
+      <div class="trust-step"><div class="trust-icon">5</div><strong>Buy</strong> - Ready to invest. Needs only the right offer at the right time.</div>
+      <div class="trust-step"><div class="trust-icon">4</div><strong>Believe</strong> - Trusts you can deliver. Needs proof and social validation.</div>
+      <div class="trust-step"><div class="trust-icon">3</div><strong>Understand</strong> - Gets your methodology. Needs to see it applied to their situation.</div>
+      <div class="trust-step"><div class="trust-icon">2</div><strong>Like</strong> - Engaged with your content. Needs deeper value and credibility.</div>
+      <div class="trust-step"><div class="trust-icon">1</div><strong>Know</strong> - Aware you exist. Needs a reason to pay attention.</div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: Sales Process Map</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Map every step from first contact to closed deal.</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Description</th>
+          <th>Who Does It</th>
+          <th>Time Required</th>
+          <th>Conversion Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>2</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>3</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>4</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>5</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+        <tr><td>6</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td><td class="editable">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Content Replacement Analysis</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">For each sales step above: could content replace the human effort?</p>
+    <table class="ws-table">
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Could Content Replace This?</th>
+          <th>What Content?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><div class="yn-row"><span class="yn-tag">Yes</span><span class="yn-tag">No</span></div></td>
+          <td class="editable">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Top 3 Objections</div>
+
+    <div class="objection-card">
+      <div class="objection-num">01</div>
+      <div class="field-group">
+        <div class="field-label">Objection</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Content piece that addresses it</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Format (video / post / email / case study)</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-num">02</div>
+      <div class="field-group">
+        <div class="field-label">Objection</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Content piece that addresses it</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Format (video / post / email / case study)</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-num">03</div>
+      <div class="field-group">
+        <div class="field-label">Objection</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Content piece that addresses it</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Format (video / post / email / case study)</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Minimum Viable Sales Process</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Reduce your sales process to a maximum of 3 steps.</p>
+    <div style="display: flex; gap: 16px;">
+      <div class="step-card" style="flex: 1;">
+        <div class="step-num">Step 1</div>
+        <div class="field-box" style="text-align: left;"></div>
+      </div>
+      <div class="step-card" style="flex: 1;">
+        <div class="step-num">Step 2</div>
+        <div class="field-box" style="text-align: left;"></div>
+      </div>
+      <div class="step-card" style="flex: 1;">
+        <div class="step-num">Step 3</div>
+        <div class="field-box" style="text-align: left;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">My simplified process:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Content I will create this week:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Calls I will eliminate:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">Your sales process is simpler. What if your content was doing the selling 24/7?</div>
+    <div class="dfy-cta">Book a call to get your social media machine built.</div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>

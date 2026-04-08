@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day Plan Worksheet | Cash Flow Machine</title>
+<style>
+:root {
+  --dark: #0a0a0a;
+  --lime: #D9FC67;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.download-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 100;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 0.8; }
+
+.ws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--dark);
+}
+.ws-logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; font-weight: 500; }
+.ws-session { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); background: var(--dark); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.ws-title { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 24px 0 8px; }
+.ws-subtitle { font-size: 18px; color: #666; font-weight: 400; }
+
+.ws-section { margin-bottom: 40px; }
+.ws-section-title {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--lime);
+  display: inline-block;
+}
+
+.field-group { margin-bottom: 24px; }
+.field-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.field-line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.field-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+.field-box.large { min-height: 120px; }
+
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.ws-table th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+.ws-table td.editable { border-bottom: 1px dotted #ccc; min-height: 20px; }
+
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.checkbox { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+.dfy-box {
+  background: var(--dark);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.dfy-box .dfy-eyebrow { color: var(--lime); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+.dfy-box .dfy-text { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.dfy-box .dfy-cta { color: var(--lime); font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+.action-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.action-num { font-size: 24px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 2px 12px; border-radius: 6px; margin-bottom: 12px; }
+
+.move-card { border: 2px solid var(--dark); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.move-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.move-num { font-size: 18px; font-weight: 800; color: var(--lime); background: var(--dark); display: inline-block; padding: 4px 14px; border-radius: 6px; }
+.move-title-field { flex: 1; border: none; border-bottom: 2px dotted #ccc; height: 32px; font-size: 18px; font-weight: 700; }
+
+.milestone-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.milestone-label { font-size: 13px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.1em; min-width: 80px; padding-top: 4px; }
+.milestone-field { flex: 1; border-bottom: 1px dotted #ccc; height: 28px; }
+
+.cadence-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-bottom: 24px; }
+.cadence-day { border: 1px solid #ddd; padding: 12px; min-height: 140px; }
+.cadence-day:first-child { border-radius: 8px 0 0 8px; }
+.cadence-day:last-child { border-radius: 0 8px 8px 0; }
+.cadence-day + .cadence-day { border-left: none; }
+.cadence-day-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.cadence-day-theme { font-size: 11px; color: #999; margin-bottom: 12px; }
+.cadence-lines { display: flex; flex-direction: column; gap: 16px; }
+.cadence-line { border-bottom: 1px dotted #ccc; height: 1px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  body { padding: 0; }
+  .page-container { max-width: 100%; padding: 20mm 15mm; }
+  .ws-header { page-break-after: avoid; }
+  .ws-section { page-break-inside: avoid; }
+  .dfy-box { page-break-inside: avoid; }
+  @page { size: A4; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<button class="download-btn">Download PDF</button>
+
+<div class="page-container">
+
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">Cash Flow Machine</div>
+      <div class="ws-title">90-Day Plan Worksheet</div>
+      <div class="ws-subtitle">3 moves. 12 weeks. Total transformation.</div>
+    </div>
+    <div class="ws-session">Session 06</div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Key Concepts</div>
+    <div style="margin-bottom: 16px;">
+      <strong style="font-size: 15px;">3 Core Moves</strong>
+      <p style="font-size: 14px; color: #666;">You do not need 30 priorities. You need 3 moves that compound. One revenue move. One systems move. One team move. Everything else waits.</p>
+    </div>
+    <div>
+      <strong style="font-size: 15px;">Weekly Cadence</strong>
+      <p style="font-size: 14px; color: #666;">Consistency beats intensity. Plan on Monday. Execute Tuesday through Thursday. Review on Friday. Repeat for 12 weeks.</p>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 1: 3 Core Moves</div>
+
+    <div class="move-card">
+      <div class="move-header">
+        <div class="move-num">01</div>
+        <div class="move-title-field" style="font-size: 14px; font-weight: 600; color: #999;">REVENUE MOVE</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Move Name</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why this move?</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 4</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 8</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 12</div>
+        <div class="milestone-field"></div>
+      </div>
+    </div>
+
+    <div class="move-card">
+      <div class="move-header">
+        <div class="move-num">02</div>
+        <div class="move-title-field" style="font-size: 14px; font-weight: 600; color: #999;">SYSTEMS MOVE</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Move Name</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why this move?</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 4</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 8</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 12</div>
+        <div class="milestone-field"></div>
+      </div>
+    </div>
+
+    <div class="move-card">
+      <div class="move-header">
+        <div class="move-num">03</div>
+        <div class="move-title-field" style="font-size: 14px; font-weight: 600; color: #999;">TEAM MOVE</div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Move Name</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Why this move?</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 4</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 8</div>
+        <div class="milestone-field"></div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-label">Week 12</div>
+        <div class="milestone-field"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 2: Weekly Cadence</div>
+    <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Design your ideal week. Fill in time blocks for each day.</p>
+    <div class="cadence-grid">
+      <div class="cadence-day">
+        <div class="cadence-day-name">Monday</div>
+        <div class="cadence-day-theme">Plan</div>
+        <div class="cadence-lines">
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+        </div>
+      </div>
+      <div class="cadence-day">
+        <div class="cadence-day-name">Tuesday</div>
+        <div class="cadence-day-theme">Execute</div>
+        <div class="cadence-lines">
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+        </div>
+      </div>
+      <div class="cadence-day">
+        <div class="cadence-day-name">Wednesday</div>
+        <div class="cadence-day-theme">Check</div>
+        <div class="cadence-lines">
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+        </div>
+      </div>
+      <div class="cadence-day">
+        <div class="cadence-day-name">Thursday</div>
+        <div class="cadence-day-theme">Execute</div>
+        <div class="cadence-lines">
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+        </div>
+      </div>
+      <div class="cadence-day">
+        <div class="cadence-day-name">Friday</div>
+        <div class="cadence-day-theme">Review</div>
+        <div class="cadence-lines">
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+          <div class="cadence-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 3: Team Move</div>
+    <div class="field-group">
+      <div class="field-label">Who do I need to hire or change?</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Role</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">By when?</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">First action to make this happen:</div>
+      <div class="field-box"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Section 4: Accountability</div>
+    <div class="field-group">
+      <div class="field-label">Who will hold me accountable?</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">How will we check in? (weekly call, Slack, text, etc.)</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">What happens if I miss a milestone?</div>
+      <div class="field-box"></div>
+    </div>
+  </div>
+
+  <div class="ws-section">
+    <div class="ws-section-title">Action Plan</div>
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="field-group">
+        <div class="field-label">Week 1 starts:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">My Revenue Move first action:</div>
+        <div class="field-box"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">My accountability partner:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dfy-box">
+    <div class="dfy-eyebrow">Done For You</div>
+    <div class="dfy-text">You have the plan. We have the team. Book a call to get your social media machine built.</div>
+    <div class="dfy-cta">Let us execute your 90-day plan for you.</div>
+  </div>
+
+</div>
+
+<script>
+document.querySelector('.download-btn').addEventListener('click', function() {
+  window.print();
+});
+</script>
+
+</body>
+</html>
