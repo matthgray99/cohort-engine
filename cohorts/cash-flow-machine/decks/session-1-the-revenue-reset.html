@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Session 01 - The Revenue Reset | Cash Flow Machine</title>
 <link rel="icon" href="https://cdn.prod.website-files.com/673ff72afe499201ca5b3d58/682b25e288fcb16455c047c1_6502233257c93f97737f04d5_favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -22,7 +19,10 @@
   --white-low: rgba(245,245,247,0.4);
   --lime: #D9FC67;
   --lime-dim: rgba(217,252,103,0.15);
+  --red: #FF4D4D;
+  --red-dim: rgba(255,77,77,0.15);
   --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --billboard: clamp(72px, 12vw, 160px);
   --hero: clamp(64px, 9vw, 120px);
   --headline: clamp(56px, 7vw, 100px);
   --subhead: clamp(40px, 4.5vw, 64px);
@@ -45,6 +45,7 @@ body {
   color: var(--white);
   font-family: var(--font);
   font-size: var(--body);
+  font-weight: 400;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -140,6 +141,17 @@ section {
   margin-bottom: 24px;
 }
 
+.billboard-text {
+  font-family: var(--font);
+  font-size: var(--billboard);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--white-high);
+  letter-spacing: -0.05em;
+  text-align: center;
+  max-width: 1200px;
+}
+
 .display {
   font-family: var(--font);
   font-size: var(--hero);
@@ -184,6 +196,7 @@ section {
 
 .body-text {
   font-size: var(--body);
+  font-weight: 400;
   line-height: 1.6;
   color: var(--white-mid);
 }
@@ -191,25 +204,26 @@ section {
 .small-text {
   font-size: var(--small);
   color: var(--white-low);
+  font-weight: 300;
 }
 
-/* Screenshot slides */
-.screenshot-slide {
+/* Squiggly underline */
+.squiggly-underline {
+  text-decoration: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='12' viewBox='0 0 100 12'%3E%3Cpath d='M0 8 Q12.5 2 25 8 Q37.5 14 50 8 Q62.5 2 75 8 Q87.5 14 100 8' fill='none' stroke='%23D9FC67' stroke-width='3'/%3E%3C/svg%3E");
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 50px 12px;
+  padding-bottom: 8px;
+}
+
+/* Billboard slides */
+.billboard-slide {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 100px 80px;
-}
-.screenshot-text {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  font-size: clamp(48px, 6vw, 88px);
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.15;
-  color: var(--white-high);
-  letter-spacing: -0.02em;
-  max-width: 1000px;
 }
 
 /* Green dot */
@@ -238,6 +252,11 @@ section {
 .card:hover {
   background: rgba(255,255,255,0.06);
   border-color: rgba(255,255,255,0.15);
+}
+
+/* Glow on accent elements */
+.glow {
+  box-shadow: 0 0 20px rgba(217,252,103,0.15);
 }
 
 /* Grid layouts */
@@ -269,22 +288,27 @@ section {
 /* Reveal animations */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 .reveal-child {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible .reveal-child {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
+.reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.1s; }
+.reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.2s; }
+.reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.3s; }
+.reveal.visible .reveal-child:nth-child(4) { transition-delay: 0.4s; }
+.reveal.visible .reveal-child:nth-child(5) { transition-delay: 0.5s; }
 
 /* Stat card */
 .stat-card {
@@ -312,14 +336,13 @@ section {
   border-color: rgba(217,252,103,0.2);
 }
 
-/* Leak number */
+/* Leak number - LIME GREEN */
 .leak-number {
   font-family: var(--font);
   font-size: clamp(48px, 5vw, 72px);
-  font-weight: 700;
-  color: var(--white-high);
+  font-weight: 800;
+  color: var(--lime);
   line-height: 1;
-  opacity: 0.15;
 }
 
 /* Stage card for individual stage slides */
@@ -349,7 +372,7 @@ section {
 .stage-revenue {
   font-family: var(--font);
   font-size: clamp(36px, 4vw, 56px);
-  font-weight: 200;
+  font-weight: 300;
   color: var(--white-high);
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -363,6 +386,363 @@ section {
 }
 .stage-detail-item:last-child {
   border-bottom: none;
+}
+
+/* Revenue Leak Funnel Diagram */
+.funnel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.funnel-pipe {
+  position: relative;
+  width: 100%;
+  height: 360px;
+}
+.funnel-segment {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(217,252,103,0.12) 0%, rgba(217,252,103,0.04) 100%);
+  border: 1px solid rgba(217,252,103,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+.funnel-segment:hover {
+  background: rgba(217,252,103,0.18);
+}
+.funnel-label {
+  font-size: var(--small);
+  font-weight: 700;
+  color: var(--white-high);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.funnel-leak {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.funnel-leak-line {
+  width: 40px;
+  height: 2px;
+  background: var(--red);
+}
+.funnel-leak-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red);
+  white-space: nowrap;
+}
+
+/* Margin Gauge */
+.gauge-container {
+  position: relative;
+  width: 280px;
+  height: 160px;
+  margin: 0 auto;
+}
+.gauge-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 20;
+}
+.gauge-fill {
+  fill: none;
+  stroke-width: 20;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gauge-fill.red { stroke: var(--red); }
+.gauge-fill.lime { stroke: var(--lime); }
+.gauge-label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* Offer Stack Visual */
+.offer-stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+.offer-stack-before {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.5;
+}
+.offer-bar {
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white-high);
+  background: rgba(255,77,77,0.15);
+  border: 1px solid rgba(255,77,77,0.3);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.offer-bar-focused {
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  background: var(--lime);
+  box-shadow: 0 0 24px rgba(217,252,103,0.2);
+}
+.offer-arrow {
+  flex-shrink: 0;
+}
+
+/* Revenue Staircase */
+.staircase {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  width: 100%;
+  max-width: 700px;
+  height: 300px;
+  margin: 0 auto;
+}
+.stair-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  position: relative;
+}
+.stair-bar {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-bottom: none;
+  transition: background 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 16px;
+}
+.stair-bar.active {
+  background: var(--lime-dim);
+  border-color: rgba(217,252,103,0.3);
+  box-shadow: 0 0 20px rgba(217,252,103,0.1);
+}
+.stair-number {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--lime);
+  letter-spacing: 0.1em;
+}
+.stair-range {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-high);
+  text-align: center;
+  margin-top: 8px;
+}
+.stair-label {
+  font-size: 11px;
+  color: var(--white-mid);
+  text-align: center;
+  padding: 0 4px;
+}
+
+/* Before/After Split */
+.split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.split-side {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.split-before {
+  background: rgba(255,77,77,0.08);
+  border: 1px solid rgba(255,77,77,0.15);
+  border-radius: 16px 0 0 16px;
+}
+.split-after {
+  background: rgba(217,252,103,0.08);
+  border: 1px solid rgba(217,252,103,0.15);
+  border-radius: 0 16px 16px 0;
+}
+.split-label {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.split-before .split-label { color: var(--red); }
+.split-after .split-label { color: var(--lime); }
+.split-number {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.split-before .split-number { color: rgba(255,77,77,0.8); }
+.split-after .split-number { color: var(--lime); }
+.split-detail {
+  font-size: var(--small);
+  color: var(--white-mid);
+  font-weight: 300;
+}
+
+/* 90-Day Timeline */
+.timeline {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-50%);
+}
+.timeline-dot-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.15);
+  transition: all 0.3s;
+}
+.timeline-dot.active {
+  background: var(--lime);
+  border-color: var(--lime);
+  box-shadow: 0 0 16px rgba(217,252,103,0.4);
+}
+.timeline-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-low);
+  text-align: center;
+}
+.timeline-dot.active + .timeline-label,
+.timeline-dot-wrap.active .timeline-label {
+  color: var(--lime);
+}
+
+/* Animated counter */
+.counter {
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bar chart fill */
+.bar-fill {
+  width: 0;
+  transition: width 2s cubic-bezier(.16,1,.3,1);
+  border-radius: 4px;
+}
+
+/* Exercise numbered items */
+.exercise-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--dark-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.exercise-option:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+.exercise-option .option-num {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lime);
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* Crossout */
+.crossout {
+  text-decoration: line-through;
+  color: var(--white-low);
+}
+
+/* Homework number */
+.hw-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--lime-dim);
+  border: 1px solid rgba(217,252,103,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--lime);
+  flex-shrink: 0;
+}
+
+/* Preview bullet */
+.preview-bullet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--body);
+  color: var(--white-mid);
+}
+.preview-bullet::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  flex-shrink: 0;
 }
 
 /* Stage flow for overview */
@@ -410,7 +790,7 @@ section {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--lime);
-  font-weight: 600;
+  font-weight: 800;
 }
 .stage-range {
   font-family: var(--font);
@@ -422,71 +802,7 @@ section {
   font-size: var(--small);
   color: var(--white-mid);
   line-height: 1.4;
-}
-
-/* Exercise numbered items */
-.exercise-option {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 20px 24px;
-  background: var(--dark-card);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-.exercise-option:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.15);
-}
-.exercise-option .option-num {
-  font-family: var(--font);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--white-high);
-  flex-shrink: 0;
-  width: 32px;
-  opacity: 0.3;
-}
-
-/* Crossout */
-.crossout {
-  text-decoration: line-through;
-  color: var(--white-low);
-}
-
-/* Homework number */
-.hw-number {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--lime-dim);
-  border: 1px solid rgba(217,252,103,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--lime);
-  flex-shrink: 0;
-}
-
-/* Preview bullet */
-.preview-bullet {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: var(--body);
-  color: var(--white-mid);
-}
-.preview-bullet::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--lime);
-  flex-shrink: 0;
+  font-weight: 300;
 }
 
 /* Responsive */
@@ -501,8 +817,15 @@ section {
   .stage-item:first-child { border-radius: 16px 16px 0 0 !important; }
   .stage-item:last-child { border-radius: 0 0 16px 16px !important; }
   .stage-item:not(:last-child)::after { display: none; }
-  .screenshot-text { font-size: clamp(32px, 8vw, 56px); }
-  .screenshot-slide { padding: 80px 32px; }
+  .billboard-text { font-size: clamp(40px, 10vw, 80px); }
+  .billboard-slide { padding: 80px 32px; }
+  .split-container { grid-template-columns: 1fr; }
+  .split-before { border-radius: 16px 16px 0 0; }
+  .split-after { border-radius: 0 0 16px 16px; }
+  .offer-stack { flex-direction: column; gap: 20px; }
+  .staircase { height: auto; flex-direction: column; align-items: stretch; }
+  .stair-bar { height: 60px !important; }
+  .timeline { flex-wrap: wrap; gap: 8px; }
 }
 </style>
 </head>
@@ -510,7 +833,7 @@ section {
 
 <div class="progress-bar" id="progressBar"></div>
 <div class="nav-watermark">Founder OS</div>
-<div class="slide-counter" id="slideCounter">01 / 27</div>
+<div class="slide-counter" id="slideCounter">01 / 30</div>
 <div class="scroll-hint" id="scrollHint">
   <span>Scroll</span>
   <div class="arrow"></div>
@@ -532,90 +855,142 @@ section {
   <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
     <div>
       <div class="eyebrow reveal-child">After This Session</div>
-      <p class="large-text reveal-child" style="max-width:800px;">You will identify the single structural problem bleeding your business dry every month.</p>
+      <p class="large-text reveal-child" style="max-width:800px;">You will identify the single structural problem bleeding your business dry.</p>
     </div>
-    <div class="grid-3 reveal-child" style="transition-delay:0.2s;">
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+    <div class="grid-3 reveal-child">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
         <div class="green-dot"></div>
         <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Your Cashflow Constraint named and measured</p>
       </div>
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
         <div class="green-dot"></div>
         <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Revenue leaks mapped across all 4 categories</p>
       </div>
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card glow" style="display:flex; flex-direction:column; gap:16px;">
         <div class="green-dot"></div>
-        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Your Revenue Stage identified ($0 to $500K+ framework)</p>
+        <p style="font-size:var(--body); color:var(--white-high); font-weight:500;">Your Revenue Stage identified</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 3: SCREENSHOT SLIDE -->
-<section class="screenshot-slide">
+<!-- SLIDE 3: BILLBOARD SLIDE -->
+<section class="billboard-slide">
   <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
-    <p class="screenshot-text reveal-child">Your revenue isn't the problem.<br>The architecture underneath it is.</p>
+    <p class="billboard-text reveal-child">Your revenue isn't the problem. The <span class="squiggly-underline">architecture</span> underneath it is.</p>
   </div>
 </section>
 
-<!-- SLIDE 4: The Problem -->
+<!-- SLIDE 4: The Problem + Animated Counter -->
 <section>
   <div class="content reveal" style="display:flex; flex-direction:column; gap:48px; align-items:center; text-align:center;">
     <div class="eyebrow reveal-child">The Pattern</div>
-    <p class="large-text reveal-child" style="max-width:800px;">Most founders are working harder than ever and keeping less than ever.</p>
-    <div class="stat-card reveal-child" style="max-width:600px; text-align:left; transition-delay:0.15s;">
-      <p style="font-size:var(--large); color:var(--white-high); font-weight:600;">$500K/year revenue. 10% margin.</p>
-      <p style="font-size:var(--reading); color:var(--white-mid); margin-top:8px;">That is a $450,000 leak.</p>
+    <p class="large-text reveal-child" style="max-width:800px;">Most founders work harder than ever and keep less than ever.</p>
+    <div class="stat-card glow reveal-child" style="max-width:600px; text-align:center;">
+      <p style="font-size:var(--large); color:var(--white-high); font-weight:700;">$500K/year revenue. 10% margin.</p>
+      <p style="font-size:var(--hero); font-weight:800; color:var(--lime); margin-top:12px; letter-spacing:-0.04em;" class="counter" data-target="450000" data-prefix="$" data-suffix=" leak">$0 leak</p>
     </div>
-    <p class="body-text reveal-child" style="max-width:600px; transition-delay:0.3s;">Revenue is not the problem. The architecture underneath it is.</p>
   </div>
 </section>
 
-<!-- SLIDE 5: 4 Revenue Leaks Overview -->
+<!-- SLIDE 5: 4 Revenue Leaks Overview + Funnel Diagram -->
 <section>
   <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
     <div style="text-align:center;">
       <div class="eyebrow reveal-child">The Framework</div>
       <h2 class="headline reveal-child">The 4 Revenue Leaks</h2>
     </div>
-    <div class="grid-2 reveal-child" style="transition-delay:0.15s;">
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
-        <span class="leak-number">01</span>
-        <h3 style="font-size:var(--reading); font-weight:600; color:var(--white-high);">Margin Compression</h3>
-        <p class="body-text">Selling too cheap for what you deliver</p>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:center;" class="reveal-child">
+      <!-- Left: Cards -->
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="card" style="display:flex; align-items:center; gap:16px;">
+          <span class="leak-number">01</span>
+          <div>
+            <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Margin Compression</h3>
+            <p style="font-size:var(--small); color:var(--white-mid);">Selling too cheap</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex; align-items:center; gap:16px;">
+          <span class="leak-number">02</span>
+          <div>
+            <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Operational Inefficiency</h3>
+            <p style="font-size:var(--small); color:var(--white-mid);">Too much overhead</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex; align-items:center; gap:16px;">
+          <span class="leak-number">03</span>
+          <div>
+            <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Poor Offer Structure</h3>
+            <p style="font-size:var(--small); color:var(--white-mid);">Wrong product mix</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex; align-items:center; gap:16px;">
+          <span class="leak-number">04</span>
+          <div>
+            <h3 style="font-size:var(--body); font-weight:700; color:var(--white-high);">Cash Conversion Cycle</h3>
+            <p style="font-size:var(--small); color:var(--white-mid);">Getting paid too slow</p>
+          </div>
+        </div>
       </div>
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
-        <span class="leak-number">02</span>
-        <h3 style="font-size:var(--reading); font-weight:600; color:var(--white-high);">Operational Inefficiency</h3>
-        <p class="body-text">Too much overhead eating your profit</p>
-      </div>
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
-        <span class="leak-number">03</span>
-        <h3 style="font-size:var(--reading); font-weight:600; color:var(--white-high);">Poor Offer Structure</h3>
-        <p class="body-text">Wrong product mix creating complexity</p>
-      </div>
-      <div class="card" style="display:flex; flex-direction:column; gap:16px;">
-        <span class="leak-number">04</span>
-        <h3 style="font-size:var(--reading); font-weight:600; color:var(--white-high);">Cash Conversion Cycle</h3>
-        <p class="body-text">Getting paid too slow</p>
+      <!-- Right: Funnel Diagram -->
+      <div class="funnel-container">
+        <svg viewBox="0 0 300 360" width="100%" style="max-width:300px; margin:0 auto; display:block;">
+          <!-- Funnel shape -->
+          <defs>
+            <linearGradient id="funnelGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(217,252,103,0.2)"/>
+              <stop offset="100%" stop-color="rgba(217,252,103,0.03)"/>
+            </linearGradient>
+          </defs>
+          <!-- Top: $500K in -->
+          <text x="150" y="20" text-anchor="middle" fill="#D9FC67" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14" font-weight="800" letter-spacing="0.1em">$500K IN</text>
+          <!-- Funnel body -->
+          <path d="M40 35 L260 35 L200 340 L100 340 Z" fill="url(#funnelGrad)" stroke="rgba(217,252,103,0.25)" stroke-width="1"/>
+          <!-- Leak lines -->
+          <line x1="60" y1="100" x2="10" y2="85" stroke="#FF4D4D" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="8" y="75" text-anchor="end" fill="#FF4D4D" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">MARGIN</text>
+          <line x1="70" y1="170" x2="10" y2="160" stroke="#FF4D4D" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="8" y="150" text-anchor="end" fill="#FF4D4D" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">OPS</text>
+          <line x1="240" y1="100" x2="290" y2="85" stroke="#FF4D4D" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="292" y="75" text-anchor="start" fill="#FF4D4D" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">OFFERS</text>
+          <line x1="230" y1="170" x2="290" y2="160" stroke="#FF4D4D" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="292" y="150" text-anchor="start" fill="#FF4D4D" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">CASH CYCLE</text>
+          <!-- Drip drops -->
+          <circle cx="130" cy="350" r="3" fill="rgba(217,252,103,0.4)"/>
+          <circle cx="150" cy="355" r="2" fill="rgba(217,252,103,0.3)"/>
+          <circle cx="170" cy="350" r="3" fill="rgba(217,252,103,0.4)"/>
+          <!-- Bottom label -->
+          <text x="150" y="345" text-anchor="middle" fill="rgba(245,245,247,0.4)" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="600">$50K KEPT</text>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 6: Leak #1 Deep Dive -->
+<!-- SLIDE 6: Leak #1 Deep Dive + Margin Gauge -->
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Leak 01</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">01</span> / Leak</div>
       <h2 class="subhead reveal-child">Margin Compression</h2>
-      <p class="reading-text reveal-child" style="margin-top:12px;">You are selling too cheap for what you deliver.</p>
     </div>
-    <div class="insight-card reveal-child" style="transition-delay:0.15s;">
-      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">If you raised your price 20% and lost 10% of clients, you would make <strong>more money</strong> with <strong>less work</strong>.</p>
+    <!-- Margin Gauge -->
+    <div class="reveal-child" style="display:flex; justify-content:center;">
+      <div class="gauge-container">
+        <svg viewBox="0 0 200 120" width="280" height="160">
+          <path d="M20 100 A80 80 0 0 1 180 100" class="gauge-bg"/>
+          <path d="M20 100 A80 80 0 0 1 180 100" class="gauge-fill red" stroke-dasharray="251" stroke-dashoffset="226" data-target="25"/>
+          <text x="56" y="115" fill="rgba(255,77,77,0.6)" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">10%</text>
+          <text x="100" y="90" text-anchor="middle" fill="#ffffff" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="24" font-weight="800">10%</text>
+          <text x="100" y="105" text-anchor="middle" fill="rgba(245,245,247,0.5)" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="500">CURRENT</text>
+          <text x="140" y="115" fill="rgba(217,252,103,0.6)" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10" font-weight="700">50%+</text>
+        </svg>
+      </div>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.25s;">
-      <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-bottom:16px;">Warning signs:</p>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Raise price 20%, lose 10% of clients. You make <strong>more money</strong> with <strong>less work</strong>.</p>
+    </div>
+    <div class="card reveal-child">
       <div style="display:flex; flex-direction:column; gap:12px;">
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> You feel guilty charging your current price</p>
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> You over-deliver to justify what you charge</p>
@@ -629,15 +1004,13 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Leak 02</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">02</span> / Leak</div>
       <h2 class="subhead reveal-child">Operational Inefficiency</h2>
-      <p class="reading-text reveal-child" style="margin-top:12px;">Too much overhead. Too many moving parts.</p>
     </div>
-    <div class="insight-card reveal-child" style="transition-delay:0.15s;">
-      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Every dollar of overhead that does not directly produce revenue is a leak. Most founders have 3-5 tools and 2-3 team members they do not actually need.</p>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Every dollar of overhead that does not directly produce revenue is a leak.</p>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.25s;">
-      <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-bottom:16px;">Warning signs:</p>
+    <div class="card reveal-child">
       <div style="display:flex; flex-direction:column; gap:12px;">
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Monthly tool spend exceeds $2K with no clear ROI</p>
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Team members cannot explain what they shipped last week</p>
@@ -647,19 +1020,33 @@ section {
   </div>
 </section>
 
-<!-- SLIDE 8: Leak #3 Deep Dive -->
+<!-- SLIDE 8: Leak #3 Deep Dive + Offer Stack Visual -->
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Leak 03</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">03</span> / Leak</div>
       <h2 class="subhead reveal-child">Poor Offer Structure</h2>
-      <p class="reading-text reveal-child" style="margin-top:12px;">Wrong product mix creating complexity without margin.</p>
     </div>
-    <div class="insight-card reveal-child" style="transition-delay:0.15s;">
-      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Every offer you add is a tax on your time, team, and margin. The question is not "what else can I sell?" It is "what should I stop selling?"</p>
+    <!-- Offer Stack Visual -->
+    <div class="offer-stack reveal-child">
+      <div class="offer-stack-before">
+        <div class="offer-bar" style="width:160px;">$3K Course</div>
+        <div class="offer-bar" style="width:140px;">$5K DFY</div>
+        <div class="offer-bar" style="width:180px;">$8K Mastermind</div>
+        <div class="offer-bar" style="width:120px;">$500 Workshop</div>
+        <div class="offer-bar" style="width:150px;">$2K Template</div>
+      </div>
+      <div class="offer-arrow">
+        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
+          <path d="M0 12H40M40 12L32 4M40 12L32 20" stroke="#D9FC67" stroke-width="2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="offer-bar-focused" style="width:220px;">$15K Core Offer</div>
+        <p style="font-size:12px; color:var(--lime); font-weight:600; margin-top:8px; text-align:center;">ONE OFFER. MAX MARGIN.</p>
+      </div>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.25s;">
-      <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-bottom:16px;">Warning signs:</p>
+    <div class="card reveal-child">
       <div style="display:flex; flex-direction:column; gap:12px;">
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> You have 3+ offers at different price points</p>
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Each offer requires different delivery systems</p>
@@ -673,66 +1060,75 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Leak 04</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">04</span> / Leak</div>
       <h2 class="subhead reveal-child">Cash Conversion Cycle</h2>
-      <p class="reading-text reveal-child" style="margin-top:12px;">Getting paid too slow, spending too fast.</p>
     </div>
-    <div class="insight-card reveal-child" style="transition-delay:0.15s;">
-      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">Revenue recognized is not cash collected. A $20K deal on a 12-month payment plan is $1,667/month of actual cash. That changes every decision.</p>
+    <div class="insight-card reveal-child">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">A $20K deal on a 12-month plan is $1,667/month of actual cash. That changes every decision.</p>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.25s;">
-      <p style="font-size:var(--body); color:var(--white-high); font-weight:600; margin-bottom:16px;">Warning signs:</p>
+    <div class="card reveal-child">
       <div style="display:flex; flex-direction:column; gap:12px;">
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> You rely on new sales to fund last month's expenses</p>
         <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Payment plan defaults exceed 15%</p>
-        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Cash in the bank does not reflect revenue on paper</p>
+        <p class="body-text" style="display:flex; align-items:center; gap:12px;"><span class="green-dot" style="flex-shrink:0;"></span> Cash in bank does not reflect revenue on paper</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 10: SCREENSHOT SLIDE -->
-<section class="screenshot-slide">
+<!-- SLIDE 10: BILLBOARD SLIDE -->
+<section class="billboard-slide">
   <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
-    <p class="screenshot-text reveal-child">Every dollar you earn passes through your business model before it reaches your pocket. Most models have holes.</p>
+    <p class="billboard-text reveal-child">Most models have <span class="squiggly-underline">holes</span>.</p>
   </div>
 </section>
 
-<!-- SLIDE 11: Revenue Stages Overview -->
+<!-- SLIDE 11: Revenue Stages Overview + Staircase -->
 <section>
   <div class="content reveal" style="display:flex; flex-direction:column; gap:48px;">
     <div style="text-align:center;">
       <div class="eyebrow reveal-child">The Map</div>
       <h2 class="headline reveal-child">The 5 Revenue Stages</h2>
     </div>
-    <div class="stage-flow reveal-child" style="transition-delay:0.15s;">
-      <div class="stage-item">
-        <span class="stage-number">Stage 1</span>
-        <span class="stage-range">$0-$10K/mo</span>
-        <span class="stage-desc">Finding product-market fit</span>
+    <!-- Staircase Diagram -->
+    <div class="staircase reveal-child">
+      <div class="stair-step">
+        <div class="stair-bar" style="height:60px;">
+          <span class="stair-number">01</span>
+        </div>
+        <span class="stair-range">$0-$10K</span>
+        <span class="stair-label">Product-market fit</span>
       </div>
-      <div class="stage-item">
-        <span class="stage-number">Stage 2</span>
-        <span class="stage-range">$10K-$50K/mo</span>
-        <span class="stage-desc">First systems, first hires</span>
+      <div class="stair-step">
+        <div class="stair-bar" style="height:110px;">
+          <span class="stair-number">02</span>
+        </div>
+        <span class="stair-range">$10K-$50K</span>
+        <span class="stair-label">First systems</span>
       </div>
-      <div class="stage-item">
-        <span class="stage-number">Stage 3</span>
-        <span class="stage-range">$50K-$100K/mo</span>
-        <span class="stage-desc">Offer optimization</span>
+      <div class="stair-step">
+        <div class="stair-bar active" style="height:160px;">
+          <span class="stair-number">03</span>
+        </div>
+        <span class="stair-range">$50K-$100K</span>
+        <span class="stair-label">Offer optimization</span>
       </div>
-      <div class="stage-item">
-        <span class="stage-number">Stage 4</span>
-        <span class="stage-range">$100K-$500K/mo</span>
-        <span class="stage-desc">Team and operations</span>
+      <div class="stair-step">
+        <div class="stair-bar" style="height:220px;">
+          <span class="stair-number">04</span>
+        </div>
+        <span class="stair-range">$100K-$500K</span>
+        <span class="stair-label">Team + ops</span>
       </div>
-      <div class="stage-item">
-        <span class="stage-number">Stage 5</span>
-        <span class="stage-range">$500K+/mo</span>
-        <span class="stage-desc">Machine-level scale</span>
+      <div class="stair-step">
+        <div class="stair-bar" style="height:280px;">
+          <span class="stair-number">05</span>
+        </div>
+        <span class="stair-range">$500K+</span>
+        <span class="stair-label">Machine scale</span>
       </div>
     </div>
-    <p class="body-text reveal-child" style="text-align:center; max-width:700px; margin:0 auto; transition-delay:0.3s;">Most founders stall because they use a Stage 2 model to run a Stage 4 business.</p>
+    <p class="body-text reveal-child" style="text-align:center; max-width:700px; margin:0 auto;">Most founders stall because they use a Stage 2 model to run a Stage 4 business.</p>
   </div>
 </section>
 
@@ -740,11 +1136,11 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:36px;">
     <div>
-      <div class="eyebrow reveal-child">Stage 1</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Stage 1</span></div>
       <div class="stage-revenue reveal-child">$0 - $10K/mo</div>
       <h2 class="subhead reveal-child" style="margin-top:8px;">Finding Product-Market Fit</h2>
     </div>
-    <div class="stage-card reveal-child" style="transition-delay:0.15s;">
+    <div class="stage-card reveal-child">
       <div style="display:flex; flex-direction:column; gap:4px;">
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
@@ -757,7 +1153,7 @@ section {
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The trap</p>
-            <p class="body-text">Spending 6 months building before selling. Perfecting instead of shipping.</p>
+            <p class="body-text">Building for 6 months before selling.</p>
           </div>
         </div>
         <div class="stage-detail-item">
@@ -776,24 +1172,24 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:36px;">
     <div>
-      <div class="eyebrow reveal-child">Stage 2</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Stage 2</span></div>
       <div class="stage-revenue reveal-child">$10K - $50K/mo</div>
       <h2 class="subhead reveal-child" style="margin-top:8px;">First Systems, First Hires</h2>
     </div>
-    <div class="stage-card reveal-child" style="transition-delay:0.15s;">
+    <div class="stage-card reveal-child">
       <div style="display:flex; flex-direction:column; gap:4px;">
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">Your job</p>
-            <p class="body-text">Build repeatable delivery. Make your first hire. Document the process.</p>
+            <p class="body-text">Build repeatable delivery. Document the process.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The trap</p>
-            <p class="body-text">Hiring before you have systems. Paying someone to figure out what you have not defined.</p>
+            <p class="body-text">Hiring before you have systems.</p>
           </div>
         </div>
         <div class="stage-detail-item">
@@ -812,31 +1208,31 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:36px;">
     <div>
-      <div class="eyebrow reveal-child">Stage 3</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Stage 3</span></div>
       <div class="stage-revenue reveal-child">$50K - $100K/mo</div>
       <h2 class="subhead reveal-child" style="margin-top:8px;">Offer Optimization</h2>
     </div>
-    <div class="stage-card reveal-child" style="transition-delay:0.15s;">
+    <div class="stage-card reveal-child">
       <div style="display:flex; flex-direction:column; gap:4px;">
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">Your job</p>
-            <p class="body-text">Compress your offers. Raise prices. Maximize margin per client.</p>
+            <p class="body-text">Compress offers. Raise prices. Maximize margin per client.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The trap</p>
-            <p class="body-text">Adding more offers to grow instead of optimizing the ones that work.</p>
+            <p class="body-text">Adding more offers instead of optimizing what works.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The unlock</p>
-            <p class="body-text">One offer, one audience, one delivery system. Ruthless simplicity.</p>
+            <p class="body-text">One offer, one audience, one delivery system.</p>
           </div>
         </div>
       </div>
@@ -848,31 +1244,31 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:36px;">
     <div>
-      <div class="eyebrow reveal-child">Stage 4</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Stage 4</span></div>
       <div class="stage-revenue reveal-child">$100K - $500K/mo</div>
       <h2 class="subhead reveal-child" style="margin-top:8px;">Team and Operations</h2>
     </div>
-    <div class="stage-card reveal-child" style="transition-delay:0.15s;">
+    <div class="stage-card reveal-child">
       <div style="display:flex; flex-direction:column; gap:4px;">
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">Your job</p>
-            <p class="body-text">Build the team. Install the operating system. Remove yourself from day-to-day.</p>
+            <p class="body-text">Build the team. Install the operating system. Remove yourself.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The trap</p>
-            <p class="body-text">Scaling people without scaling systems. Growing headcount instead of output per person.</p>
+            <p class="body-text">Scaling people without scaling systems.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The unlock</p>
-            <p class="body-text">Every role has a scorecard. Every process has an owner. You lead, not manage.</p>
+            <p class="body-text">Every role has a scorecard. Every process has an owner.</p>
           </div>
         </div>
       </div>
@@ -884,31 +1280,31 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:36px;">
     <div>
-      <div class="eyebrow reveal-child">Stage 5</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Stage 5</span></div>
       <div class="stage-revenue reveal-child">$500K+/mo</div>
       <h2 class="subhead reveal-child" style="margin-top:8px;">Machine-Level Scale</h2>
     </div>
-    <div class="stage-card reveal-child" style="transition-delay:0.15s;">
+    <div class="stage-card reveal-child">
       <div style="display:flex; flex-direction:column; gap:4px;">
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">Your job</p>
-            <p class="body-text">Protect the machine. Optimize for cash flow, not revenue. Build leverage.</p>
+            <p class="body-text">Protect the machine. Optimize for cash flow, not revenue.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The trap</p>
-            <p class="body-text">Chasing top-line growth instead of margin. Acquiring customers that cost more than they return.</p>
+            <p class="body-text">Chasing top-line growth instead of margin.</p>
           </div>
         </div>
         <div class="stage-detail-item">
           <div class="green-dot" style="flex-shrink:0; margin-top:8px;"></div>
           <div>
             <p style="font-size:var(--body); color:var(--white-high); font-weight:600;">The unlock</p>
-            <p class="body-text">Revenue is a vanity metric. Cash collected per employee is the number that matters.</p>
+            <p class="body-text">Cash collected per employee is the number that matters.</p>
           </div>
         </div>
       </div>
@@ -920,22 +1316,22 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
     <div class="eyebrow reveal-child">Why Founders Stall</div>
-    <p class="subhead reveal-child" style="font-weight:600;">99% of founders stall at $100K/month.</p>
-    <p class="body-text reveal-child" style="max-width:640px; transition-delay:0.15s;">Not because they lack hustle. Because they are running the wrong operating model for their revenue stage. Doing more of the same does not scale. The model has to change.</p>
-    <div class="reveal-child" style="display:flex; align-items:center; gap:24px; margin-top:16px; transition-delay:0.3s;">
+    <p class="subhead reveal-child" style="font-weight:700;">99% of founders stall at $100K/month.</p>
+    <p class="body-text reveal-child" style="max-width:640px;">Not because they lack hustle. Because they are running the wrong operating model for their revenue stage.</p>
+    <div class="reveal-child" style="display:flex; align-items:center; gap:24px; margin-top:16px;">
       <span class="crossout" style="font-size:var(--reading);">Work Harder</span>
       <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
         <path d="M0 6H36M36 6L30 1M36 6L30 11" stroke="#D9FC67" stroke-width="1.5"/>
       </svg>
-      <span style="font-size:var(--reading); color:var(--white-high); font-weight:600;">Change the Architecture</span>
+      <span style="font-size:var(--reading); color:var(--white-high); font-weight:700;">Change the Architecture</span>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 18: SCREENSHOT SLIDE -->
-<section class="screenshot-slide">
+<!-- SLIDE 18: BILLBOARD SLIDE -->
+<section class="billboard-slide">
   <div class="reveal" style="display:flex; flex-direction:column; align-items:center; gap:32px;">
-    <p class="screenshot-text reveal-child">You don't have a revenue problem. You have an architecture problem.</p>
+    <p class="billboard-text reveal-child">You don't have a revenue problem. You have an <span class="squiggly-underline">architecture</span> problem.</p>
   </div>
 </section>
 
@@ -945,8 +1341,8 @@ section {
     <div class="eyebrow reveal-child">Live Exercise</div>
     <h2 class="headline reveal-child">Open Your Worksheet</h2>
     <p class="reading-text reveal-child" style="margin-top:-8px;">The Revenue Reset Diagnostic</p>
-    <p class="body-text reveal-child" style="max-width:640px; transition-delay:0.15s;">In the next 30 minutes, you are going to identify your ONE Cashflow Constraint. Not a list of problems. ONE structural bottleneck that, if fixed, changes everything downstream.</p>
-    <div class="card reveal-child" style="max-width:540px; text-align:left; transition-delay:0.3s;">
+    <p class="body-text reveal-child" style="max-width:640px;">30 minutes. ONE structural bottleneck. If fixed, it changes everything downstream.</p>
+    <div class="card glow reveal-child" style="max-width:540px; text-align:left;">
       <p style="font-size:var(--body); color:var(--white-mid);"><strong style="color:var(--white-high);">You will need:</strong> Your P&amp;L, your offer list, and 30 minutes of honest assessment.</p>
     </div>
   </div>
@@ -956,11 +1352,11 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Step 01</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 01</span></div>
       <h2 class="subhead reveal-child">Audit Your Revenue Streams</h2>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.1s;">
-      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">List every offer. Price. Estimated margin. Percentage of total revenue.</p>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; margin-bottom:16px; font-size:var(--body);">List every offer. Price. Margin. % of revenue.</p>
       <div style="background:rgba(255,255,255,0.03); border-radius:10px; padding:20px; margin-top:12px; font-size:var(--small); font-family:var(--font);">
         <div style="display:grid; grid-template-columns:1fr auto auto auto; gap:8px 24px; color:var(--white-mid);">
           <span style="color:var(--white-low); text-transform:uppercase; letter-spacing:0.1em;">Offer</span>
@@ -982,7 +1378,7 @@ section {
         </div>
       </div>
     </div>
-    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high); transition-delay:0.25s;">Which offer has the lowest margin? Circle it.</p>
+    <p class="body-text reveal-child" style="font-weight:500; color:var(--white-high);">Which offer has the lowest margin? Circle it.</p>
   </div>
 </section>
 
@@ -990,14 +1386,14 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Step 02</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 02</span></div>
       <h2 class="subhead reveal-child">Calculate Your Real Margin</h2>
     </div>
-    <div class="card reveal-child" style="transition-delay:0.1s;">
-      <p style="color:var(--white-high); font-weight:500; line-height:1.6; font-size:var(--body);">Revenue minus ALL costs (COGS + fixed costs + your time valued at $500/hr) = Real Margin</p>
+    <div class="card reveal-child">
+      <p style="color:var(--white-high); font-weight:500; line-height:1.6; font-size:var(--body);">Revenue minus ALL costs (COGS + fixed + your time at $500/hr) = Real Margin</p>
     </div>
-    <p class="body-text reveal-child" style="transition-delay:0.2s;">Most founders overestimate their margin by 15-25% because they do not cost their own time.</p>
-    <p class="reveal-child" style="font-size:var(--reading); font-weight:600; color:var(--white-high); transition-delay:0.3s;">What is your REAL margin? Write the number.</p>
+    <p class="body-text reveal-child">Most founders overestimate margin by 15-25% because they do not cost their own time.</p>
+    <p class="reveal-child" style="font-size:var(--reading); font-weight:700; color:var(--white-high);">What is your REAL margin? Write the number.</p>
   </div>
 </section>
 
@@ -1005,7 +1401,7 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
-      <div class="eyebrow reveal-child">Step 03</div>
+      <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 03</span></div>
       <h2 class="subhead reveal-child">Name Your Cashflow Constraint</h2>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px;" class="reveal-child">
@@ -1026,43 +1422,48 @@ section {
         <p style="color:var(--white-high); font-size:var(--body);"><strong>Cash Conversion:</strong> <span style="color:var(--white-mid);">I am getting paid too slow</span></p>
       </div>
     </div>
-    <p class="reveal-child" style="font-size:var(--reading); font-weight:600; color:var(--white-high); transition-delay:0.3s;">Circle ONE. This is the constraint we fix over the next 13 days.</p>
+    <p class="reveal-child" style="font-size:var(--reading); font-weight:700; color:var(--white-high);">Circle ONE. This is the constraint we fix over 13 days.</p>
   </div>
 </section>
 
 <!-- SLIDE 23: Exercise Step 4 -->
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
-    <div class="eyebrow reveal-child">Step 04</div>
+    <div class="eyebrow reveal-child"><span style="color:var(--lime); font-weight:800;">Step 04</span></div>
     <h2 class="subhead reveal-child">Share Your Constraint</h2>
-    <div class="card reveal-child" style="max-width:600px; transition-delay:0.15s;">
-      <p style="color:var(--white-high); font-size:var(--reading); line-height:1.6;">Drop your constraint in the chat. One sentence.</p>
+    <div class="card glow reveal-child" style="max-width:600px;">
+      <p style="color:var(--white-high); font-size:var(--reading); line-height:1.6;">Drop it in the chat. One sentence.</p>
       <p style="color:var(--white-mid); font-style:italic; margin-top:12px; font-size:var(--body);">"My constraint is [X] because [Y]."</p>
     </div>
-    <p class="body-text reveal-child" style="max-width:600px; transition-delay:0.3s;">Hearing 50 founders name their constraint in real time is one of the most powerful moments in this cohort. You will realize you are not alone, and you will see patterns you did not expect.</p>
   </div>
 </section>
 
-<!-- SLIDE 24: Case Study 1 -->
+<!-- SLIDE 24: Case Study 1 + Before/After Split -->
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px;">
     <div>
       <div class="eyebrow reveal-child">Case Study</div>
       <h2 class="subhead reveal-child">The $500K Business Keeping 10%</h2>
     </div>
-    <div class="card reveal-child" style="display:flex; flex-direction:column; gap:20px; transition-delay:0.1s;">
-      <p class="body-text" style="color:var(--white-high);">A founder came to me doing $500K/year. Impressive top line. But after team, tools, delivery costs, and over-serving clients who paid $3K for $15K of value, he was keeping $50,000.</p>
-      <div style="border-top:1px solid var(--card-border); padding-top:20px;">
-        <p style="color:var(--lime); font-size:var(--eyebrow); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">Diagnosis</p>
-        <p class="body-text" style="color:var(--white-high);">Margin Compression + Poor Offer Structure</p>
+    <p class="body-text reveal-child" style="color:var(--white-high);">Doing $500K/year. After team, tools, and over-serving clients who paid $3K for $15K of value, he was keeping $50K.</p>
+    <!-- Before/After Split -->
+    <div class="split-container reveal-child">
+      <div class="split-side split-before">
+        <span class="split-label">Before</span>
+        <span class="split-number">$50K</span>
+        <span class="split-detail">kept / year</span>
+        <span class="split-detail">4 offers, 10% margin</span>
       </div>
-      <div style="border-top:1px solid var(--card-border); padding-top:20px;">
-        <p style="color:var(--lime); font-size:var(--eyebrow); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">The Fix</p>
-        <p class="body-text" style="color:var(--white-high);">Compressed from 4 offers to 1. Raised the price. Reduced delivery complexity.</p>
+      <div class="split-side split-after">
+        <span class="split-label">After</span>
+        <span class="split-number">$240K</span>
+        <span class="split-detail">kept / year</span>
+        <span class="split-detail">1 offer, 48% margin</span>
       </div>
     </div>
-    <div class="stat-card reveal-child" style="transition-delay:0.25s;">
-      <p style="font-size:var(--reading); color:var(--white-high); font-weight:500;">Within 6 months: same revenue, <strong>48% margin</strong>.</p>
+    <div class="stat-card glow reveal-child">
+      <p style="font-size:var(--body); color:var(--white-mid);"><span style="color:var(--lime); font-weight:800;">Diagnosis:</span> Margin Compression + Poor Offer Structure</p>
+      <p style="font-size:var(--body); color:var(--white-mid); margin-top:8px;"><span style="color:var(--lime); font-weight:800;">Fix:</span> Compressed 4 offers to 1. Raised the price.</p>
     </div>
   </div>
 </section>
@@ -1071,54 +1472,78 @@ section {
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:40px; align-items:center; text-align:center;">
     <div class="eyebrow reveal-child">Case Study</div>
-    <h2 class="subhead reveal-child">From $4M/Year and Broken<br>to $13.8M and Free</h2>
-    <p class="body-text reveal-child" style="max-width:600px; transition-delay:0.1s;">Nine years ago, I was making $4M a year and working 14-hour days. My doctor told me my cortisol levels were destroying my body.</p>
-    <p class="body-text reveal-child" style="max-width:600px; transition-delay:0.2s;">The constraint was not revenue. It was architecture. I was the bottleneck in every system.</p>
-    <div class="insight-card reveal-child" style="max-width:600px; transition-delay:0.3s;">
-      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">I stopped working harder and started designing systems. That single shift took me from $4M burnt out to $13.8M with a life I love.</p>
+    <h2 class="subhead reveal-child">From $4M and Broken<br>to $13.8M and Free</h2>
+    <p class="body-text reveal-child" style="max-width:600px;">Nine years ago I was making $4M a year working 14-hour days. My doctor said my cortisol was destroying my body.</p>
+    <div class="insight-card glow reveal-child" style="max-width:600px;">
+      <p style="font-size:var(--reading); color:var(--white-high); line-height:1.6;">I stopped working harder and started designing systems. $4M burnt out to $13.8M with a life I love.</p>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 26: Key Takeaway -->
-<section>
+<!-- SLIDE 26: Key Takeaway - BILLBOARD -->
+<section class="billboard-slide">
   <div class="content reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px;">
-    <h2 class="display reveal-child" style="max-width:900px;">Revenue is not the goal.</h2>
-    <h2 class="display reveal-child" style="max-width:900px; transition-delay:0.15s;">Predictable, high-margin<br>cash flow is the goal.</h2>
-    <p class="body-text reveal-child" style="margin-top:24px; transition-delay:0.3s;">Everything we build over the next 13 days flows from the constraint you just named.</p>
+    <p class="billboard-text reveal-child" style="max-width:1000px;">Predictable, high-margin <span class="squiggly-underline">cash flow</span> is the goal.</p>
+    <p class="body-text reveal-child" style="margin-top:24px;">Everything we build over 13 days flows from the constraint you just named.</p>
   </div>
 </section>
 
-<!-- SLIDE 27: Homework -->
+<!-- SLIDE 27: Homework + 90-Day Timeline -->
 <section>
   <div class="content-narrow reveal" style="display:flex; flex-direction:column; gap:48px;">
     <div>
       <div class="eyebrow reveal-child">Before Session 2</div>
       <h2 class="subhead reveal-child">Your Homework</h2>
     </div>
-    <div style="display:flex; flex-direction:column; gap:16px;">
-      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px; transition-delay:0.1s;">
-        <div class="hw-number">1</div>
-        <p class="body-text" style="color:var(--white-high);">Complete the Revenue Reset Worksheet (if not finished during the session)</p>
+    <!-- 90-Day Timeline -->
+    <div class="timeline reveal-child">
+      <div class="timeline-line"></div>
+      <div class="timeline-dot-wrap active">
+        <div class="timeline-dot active"></div>
+        <span class="timeline-label" style="color:var(--lime);">S1</span>
       </div>
-      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px; transition-delay:0.2s;">
-        <div class="hw-number">2</div>
-        <p class="body-text" style="color:var(--white-high);">Read The Offer Evolution Playbook (pre-work for Session 2) -- focus on the "99% of founders stall" section</p>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S2</span>
       </div>
-      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px; transition-delay:0.3s;">
-        <div class="hw-number">3</div>
-        <p class="body-text" style="color:var(--white-high);">Post your Cashflow Constraint in the community and tag #session1</p>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S3</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S4</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S5</span>
+      </div>
+      <div class="timeline-dot-wrap">
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">S6</span>
       </div>
     </div>
-    <p class="body-text reveal-child" style="color:var(--white-mid); transition-delay:0.4s;">Session 2 is Offer Compression. We are going to take the constraint you found today and start fixing the offer structure around it. Come with your full offer list mapped.</p>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="hw-number">1</div>
+        <p class="body-text" style="color:var(--white-high);">Complete the Revenue Reset Worksheet</p>
+      </div>
+      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="hw-number">2</div>
+        <p class="body-text" style="color:var(--white-high);">Read The Offer Evolution Playbook (pre-work for Session 2)</p>
+      </div>
+      <div class="card reveal-child" style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="hw-number">3</div>
+        <p class="body-text" style="color:var(--white-high);">Post your Cashflow Constraint in the community #session1</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- SLIDE 28: Velocity Seed -->
-<section class="screenshot-slide">
+<section class="billboard-slide">
   <div class="content reveal" style="text-align:center;">
-    <p class="screenshot-text reveal-child" style="max-width:900px; margin:0 auto;">The best founders don't just learn the system. They get it installed.</p>
-    <p class="body-text reveal-child" style="color:var(--white-mid); margin-top:40px; max-width:640px; margin-left:auto; margin-right:auto; transition-delay:0.2s;">Over the next 14 days, pay attention to how it feels to build these systems yourself. Pay attention to where the bottleneck is: knowledge or time. The answer to that question will tell you everything about what comes next.</p>
+    <p class="billboard-text reveal-child" style="max-width:900px; margin:0 auto; font-size:clamp(48px, 8vw, 100px);">The best founders don't just learn the system. They get it installed.</p>
   </div>
 </section>
 
@@ -1131,9 +1556,9 @@ section {
       <p class="reading-text reveal-child" style="color:var(--white-mid); margin-top:12px;">Fewer offers. Higher margins. Less complexity.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:16px;">
-      <div class="preview-bullet reveal-child" style="transition-delay:0.15s;">The Magnetic Offer Framework (4 Principles)</div>
-      <div class="preview-bullet reveal-child" style="transition-delay:0.25s;">The Value Equation: why your pricing feels wrong</div>
-      <div class="preview-bullet reveal-child" style="transition-delay:0.35s;">Case Study: How Ali Abdaal built a $5M funnel</div>
+      <div class="preview-bullet reveal-child">The Magnetic Offer Framework (4 Principles)</div>
+      <div class="preview-bullet reveal-child">The Value Equation: why your pricing feels wrong</div>
+      <div class="preview-bullet reveal-child">Case Study: How Ali Abdaal built a $5M funnel</div>
     </div>
   </div>
 </section>
@@ -1181,20 +1606,86 @@ section {
     }
   }
 
-  var observer = new IntersectionObserver(function(entries) {
+  // IntersectionObserver for reveals
+  var revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        var children = entry.target.querySelectorAll('.reveal-child');
-        children.forEach(function(child, i) {
-          child.style.transitionDelay = (i * 0.1) + 's';
-        });
       }
     });
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.reveal').forEach(function(el) {
-    observer.observe(el);
+    revealObserver.observe(el);
+  });
+
+  // Counter animation
+  function animateCounter(el, target, duration, prefix, suffix) {
+    prefix = prefix || '';
+    suffix = suffix || '';
+    var start = 0;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      start += step;
+      if (start >= target) {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+      }
+    }, 16);
+  }
+
+  // Observe counters
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var target = parseInt(entry.target.dataset.target, 10);
+        var prefix = entry.target.dataset.prefix || '';
+        var suffix = entry.target.dataset.suffix || '';
+        animateCounter(entry.target, target, 2000, prefix, suffix);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter[data-target]').forEach(function(el) {
+    counterObserver.observe(el);
+  });
+
+  // Animate gauge fills when visible
+  var gaugeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var fills = entry.target.querySelectorAll('.gauge-fill');
+        fills.forEach(function(fill) {
+          var target = parseFloat(fill.dataset.target) || 0;
+          // Semicircle arc length is ~251 for our path
+          var offset = 251 - (251 * target / 100);
+          fill.style.strokeDashoffset = offset;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.gauge-container').forEach(function(el) {
+    gaugeObserver.observe(el);
+  });
+
+  // Animate bar fills when visible
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        var targetWidth = entry.target.dataset.width || '100%';
+        entry.target.style.width = targetWidth;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(function(el) {
+    barObserver.observe(el);
   });
 
   window.addEventListener('scroll', function() {
@@ -1202,6 +1693,7 @@ section {
     hideHint();
   }, { passive: true });
 
+  // Keyboard navigation
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowDown' || e.key === ' ') {
       e.preventDefault();
