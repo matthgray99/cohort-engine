@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cohort Engine - Curriculum Decks</title>
+  <title>Cohort Engine - Founder OS</title>
   <link rel="icon" href="https://founderos.com/favicon.ico" type="image/x-icon">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       background: #0a0a0a;
       color: #fff;
@@ -14,202 +15,736 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
+
     .container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+    /* ---- Header ---- */
+    .header {
+      text-align: center;
       margin-bottom: 48px;
     }
-    .eyebrow {
+    .header-eyebrow {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #888;
-    }
-    .nav-link {
-      font-size: 13px;
-      color: #888;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-link:hover { color: #D9FC67; }
-    .header { margin-bottom: 48px; }
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 8px;
-    }
-    .subtitle {
-      font-size: 18px;
-      color: #888;
-      font-weight: 400;
-    }
-    .tabs {
-      display: flex;
-      gap: 32px;
-      border-bottom: 1px solid #222;
-      margin-bottom: 40px;
-    }
-    .tab {
-      padding: 12px 0;
-      font-size: 15px;
-      font-weight: 500;
-      color: #666;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      font-family: inherit;
-    }
-    .tab:hover { color: #ccc; }
-    .tab.active {
-      color: #fff;
-      border-bottom-color: #D9FC67;
-    }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      display: block;
-      background: #141414;
-      border: 1px solid #1e1e1e;
-      border-radius: 12px;
-      padding: 28px 24px;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.2s, transform 0.2s, border-color 0.2s;
-    }
-    .card:hover {
-      background: #1a1a1a;
-      transform: translateY(-3px);
-      border-color: #2a2a2a;
-    }
-    .card-session {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #D9FC67;
       margin-bottom: 12px;
     }
-    .card-title {
-      font-size: 18px;
+    .header-title {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .header-subtitle {
+      font-size: 16px;
+      color: rgba(245,245,247,0.5);
+      font-weight: 400;
+    }
+
+    /* ---- Tabs ---- */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 48px;
+      background: #141414;
+      border-radius: 10px;
+      padding: 4px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab {
+      flex: 1;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 1.3;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+    .tab:hover { color: rgba(255,255,255,0.7); }
+    .tab.active {
+      background: #1e1e1e;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* ---- Sections ---- */
+    .cohort-panel { display: none; }
+    .cohort-panel.active { display: block; }
+
+    .section {
+      margin-bottom: 56px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #D9FC67;
+    }
+    .section-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.06);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .section-divider {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ---- Grid ---- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    /* ---- Cards ---- */
+    .card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+    }
+    .card:hover {
+      border-color: rgba(217,252,103,0.25);
+      transform: translateY(-2px);
+      background: #181818;
+    }
+    .card-number {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
       margin-bottom: 8px;
     }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
     .card-desc {
-      font-size: 14px;
-      color: #888;
+      font-size: 13px;
+      color: rgba(245,245,247,0.45);
       line-height: 1.5;
+      flex: 1;
+    }
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+    }
+    .card-badge svg {
+      width: 13px;
+      height: 13px;
+      opacity: 0.5;
+    }
+    .badge-html {
+      color: rgba(217,252,103,0.6);
+    }
+    .badge-github {
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ---- Skill Section ---- */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .skill-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .skill-card:hover {
+      border-color: rgba(217,252,103,0.25);
+      transform: translateY(-1px);
+    }
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+    .skill-icon-primary {
+      background: rgba(217,252,103,0.1);
+      color: #D9FC67;
+    }
+    .skill-icon-ref {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.4);
+    }
+    .skill-icon-script {
+      background: rgba(100,200,255,0.08);
+      color: rgba(100,200,255,0.6);
+    }
+    .skill-name {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .skill-type {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      text-align: center;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 16px;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-link {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover {
+      color: #D9FC67;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .header-title { font-size: 32px; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 32px 16px 64px; }
+      .header-title { font-size: 28px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .skill-grid { grid-template-columns: 1fr; }
+      .tabs { max-width: 100%; }
+      .tab { font-size: 13px; padding: 10px 12px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top-nav">
-      <span class="eyebrow">Founder OS</span>
-      <a href="worksheets.html" class="nav-link">Session Worksheets &rarr;</a>
-    </div>
+
+    <!-- Header -->
     <div class="header">
-      <h1 class="title">Cohort Engine</h1>
-      <p class="subtitle">Curriculum Decks</p>
+      <div class="header-eyebrow">Founder OS</div>
+      <h1 class="header-title">Cohort Engine</h1>
+      <p class="header-subtitle">Every asset. Every cohort. One link.</p>
     </div>
+
+    <!-- Tabs -->
     <div class="tabs">
       <button class="tab active" data-tab="cfm">Cash Flow Machine</button>
       <button class="tab" data-tab="smm">Social Media Machine</button>
     </div>
-    <div id="cfm" class="tab-content active">
-      <div class="grid">
-        <a href="cfm-decks/session-1-the-revenue-reset.html" class="card">
-          <div class="card-session">Session 1</div>
-          <div class="card-title">The Revenue Reset</div>
-          <div class="card-desc">Define your ONE cash flow constraint</div>
+
+    <!-- ================================================ -->
+    <!-- CASH FLOW MACHINE -->
+    <!-- ================================================ -->
+    <div class="cohort-panel active" id="panel-cfm">
+
+      <!-- CFM Decks -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Decks</span>
+          <span class="section-count">6 files</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-3">
+          <a class="card" href="cfm-decks/session-1-the-revenue-reset.html">
+            <span class="card-number">Session 1</span>
+            <span class="card-title">The Revenue Reset</span>
+            <span class="card-desc">Diagnose revenue leaks, map current business model, identify highest-leverage fix</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="cfm-decks/session-2-offer-compression.html">
+            <span class="card-number">Session 2</span>
+            <span class="card-title">Offer Compression</span>
+            <span class="card-desc">Simplify your offer stack, compress into one irresistible core offer</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="cfm-decks/session-3-pricing-margin-expansion.html">
+            <span class="card-number">Session 3</span>
+            <span class="card-title">Pricing &amp; Margin Expansion</span>
+            <span class="card-desc">Restructure pricing for maximum margin, eliminate discount dependency</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="cfm-decks/session-4-the-lead-engine.html">
+            <span class="card-number">Session 4</span>
+            <span class="card-title">The Lead Engine</span>
+            <span class="card-desc">Build a predictable lead generation system that fills pipeline on autopilot</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="cfm-decks/session-5-sales-simplification.html">
+            <span class="card-number">Session 5</span>
+            <span class="card-title">Sales Simplification</span>
+            <span class="card-desc">Streamline the sales process, remove friction, close without pressure</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="cfm-decks/session-6-90-day-execution-plan.html">
+            <span class="card-number">Session 6</span>
+            <span class="card-title">90-Day Execution Plan</span>
+            <span class="card-desc">Build your personal 90-day roadmap, set milestones, lock in accountability</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CFM Worksheets -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Worksheets</span>
+          <span class="section-count">6 files</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-3">
+          <a class="card" href="cfm-worksheets/ws-01-revenue-reset.html">
+            <span class="card-number">WS 01</span>
+            <span class="card-title">Revenue Reset</span>
+            <span class="card-desc">Audit revenue streams, identify leaks, calculate true margins</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="cfm-worksheets/ws-02-offer-compression.html">
+            <span class="card-number">WS 02</span>
+            <span class="card-title">Offer Compression</span>
+            <span class="card-desc">Map your offer stack, score each, compress to highest-leverage core</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="cfm-worksheets/ws-03-pricing-margin.html">
+            <span class="card-number">WS 03</span>
+            <span class="card-title">Pricing &amp; Margin</span>
+            <span class="card-desc">Calculate break-even, model pricing tiers, test margin scenarios</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="cfm-worksheets/ws-04-lead-engine.html">
+            <span class="card-number">WS 04</span>
+            <span class="card-title">Lead Engine</span>
+            <span class="card-desc">Design lead sources, set conversion targets, build tracking dashboard</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="cfm-worksheets/ws-05-sales-simplification.html">
+            <span class="card-number">WS 05</span>
+            <span class="card-title">Sales Simplification</span>
+            <span class="card-desc">Script your sales flow, remove objection friction, set close targets</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="cfm-worksheets/ws-06-90-day-plan.html">
+            <span class="card-number">WS 06</span>
+            <span class="card-title">90-Day Plan</span>
+            <span class="card-desc">Set 90-day milestones, weekly sprints, accountability checkpoints</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CFM Emails -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Emails</span>
+          <span class="section-count">5 emails</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <a class="card" href="https://github.com/matthgray99/cohort-engine/blob/main/cohorts/cash-flow-machine/emails/04-pre-cohort-onboarding.md" target="_blank" rel="noopener">
+            <span class="card-number">Email Sequence</span>
+            <span class="card-title">Pre-Cohort Onboarding</span>
+            <span class="card-desc">5-email welcome sequence: confirmation, tech setup, expectation setting, community activation, day-before hype</span>
+            <span class="card-badge badge-github"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CFM Landing Page (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Landing Page</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Copy</span>
+            <span class="card-title">Landing Page Copy</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CFM Video Scripts (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Video Scripts</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Scripts</span>
+            <span class="card-title">5 Video Scripts</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CFM Campaign Brief (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Campaign Brief</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Brief</span>
+            <span class="card-title">Campaign Brief</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================ -->
+    <!-- SOCIAL MEDIA MACHINE -->
+    <!-- ================================================ -->
+    <div class="cohort-panel" id="panel-smm">
+
+      <!-- SMM Decks -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Decks</span>
+          <span class="section-count">6 files</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-3">
+          <a class="card" href="smm-decks/session-1-the-brand-foundation.html">
+            <span class="card-number">Session 1</span>
+            <span class="card-title">The Brand Foundation</span>
+            <span class="card-desc">Define your brand identity, positioning, and unique founder narrative</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="smm-decks/session-2-the-content-gps.html">
+            <span class="card-number">Session 2</span>
+            <span class="card-title">The Content GPS</span>
+            <span class="card-desc">Map your content pillars, audience pain points, and topic clusters</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="smm-decks/session-3-the-hook-engine.html">
+            <span class="card-number">Session 3</span>
+            <span class="card-title">The Hook Engine</span>
+            <span class="card-desc">Master scroll-stopping hooks, pattern interrupts, and attention capture</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="smm-decks/session-4-the-content-waterfall.html">
+            <span class="card-number">Session 4</span>
+            <span class="card-title">The Content Waterfall</span>
+            <span class="card-desc">Turn one piece of content into 10+ assets across every platform</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="smm-decks/session-5-the-distribution-machine.html">
+            <span class="card-number">Session 5</span>
+            <span class="card-title">The Distribution Machine</span>
+            <span class="card-desc">Build a multi-platform distribution system that compounds reach</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+          <a class="card" href="smm-decks/session-6-the-90-day-content-plan.html">
+            <span class="card-number">Session 6</span>
+            <span class="card-title">The 90-Day Content Plan</span>
+            <span class="card-desc">Build your personal 90-day content roadmap with weekly publishing cadence</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Deck</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SMM Worksheets -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Worksheets</span>
+          <span class="section-count">6 files</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-3">
+          <a class="card" href="smm-worksheets/ws-01-brand-foundation.html">
+            <span class="card-number">WS 01</span>
+            <span class="card-title">Brand Foundation</span>
+            <span class="card-desc">Define brand pillars, audience avatar, positioning statement</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="smm-worksheets/ws-02-content-gps.html">
+            <span class="card-number">WS 02</span>
+            <span class="card-title">Content GPS</span>
+            <span class="card-desc">Map content pillars, topic clusters, and audience pain points</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="smm-worksheets/ws-03-hook-engine.html">
+            <span class="card-number">WS 03</span>
+            <span class="card-title">Hook Engine</span>
+            <span class="card-desc">Build your hook library, test scroll-stoppers, rate attention pull</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="smm-worksheets/ws-04-content-waterfall.html">
+            <span class="card-number">WS 04</span>
+            <span class="card-title">Content Waterfall</span>
+            <span class="card-desc">Plan your waterfall workflow, assign repurposing steps per platform</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="smm-worksheets/ws-05-distribution-machine.html">
+            <span class="card-number">WS 05</span>
+            <span class="card-title">Distribution Machine</span>
+            <span class="card-desc">Map distribution channels, set posting cadence, track reach metrics</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+          <a class="card" href="smm-worksheets/ws-06-90-day-content-plan.html">
+            <span class="card-number">WS 06</span>
+            <span class="card-title">90-Day Content Plan</span>
+            <span class="card-desc">Set weekly publishing goals, plan content calendar, track consistency</span>
+            <span class="card-badge badge-html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM6 5l5 3-5 3V5z"/></svg> HTML Worksheet</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SMM Emails -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Emails</span>
+          <span class="section-count">5 emails</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <a class="card" href="https://github.com/matthgray99/cohort-engine/blob/main/cohorts/social-media-machine/emails/04-pre-cohort-onboarding.md" target="_blank" rel="noopener">
+            <span class="card-number">Email Sequence</span>
+            <span class="card-title">Pre-Cohort Onboarding</span>
+            <span class="card-desc">5-email welcome sequence: confirmation, tech setup, expectation setting, community activation, day-before hype</span>
+            <span class="card-badge badge-github"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SMM Landing Page (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Landing Page</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Copy</span>
+            <span class="card-title">Landing Page Copy</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMM Video Scripts (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Video Scripts</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Scripts</span>
+            <span class="card-title">5 Video Scripts</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMM Campaign Brief (placeholder) -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Campaign Brief</span>
+          <span class="section-count">Coming soon</span>
+          <span class="section-divider"></span>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="opacity: 0.4; cursor: default;">
+            <span class="card-number">Brief</span>
+            <span class="card-title">Campaign Brief</span>
+            <span class="card-desc">Not yet generated. Run the cohort-offer skill to produce.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================ -->
+    <!-- SKILL SECTION -->
+    <!-- ================================================ -->
+    <div class="section" style="margin-top: 16px;">
+      <div class="section-header">
+        <span class="section-label">Skill</span>
+        <span class="section-count">11 files</span>
+        <span class="section-divider"></span>
+      </div>
+
+      <div class="skill-grid">
+        <!-- SKILL.md -->
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/SKILL.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-primary">S</span>
+          <span>
+            <span class="skill-name">SKILL.md</span><br>
+            <span class="skill-type">Skill definition</span>
+          </span>
         </a>
-        <a href="cfm-decks/session-2-offer-compression.html" class="card">
-          <div class="card-session">Session 2</div>
-          <div class="card-title">Offer Compression</div>
-          <div class="card-desc">Fewer offers. Higher margins. Less complexity.</div>
+
+        <!-- References -->
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/cfm-reference.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">cfm-reference.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
         </a>
-        <a href="cfm-decks/session-3-pricing-margin-expansion.html" class="card">
-          <div class="card-session">Session 3</div>
-          <div class="card-title">Pricing & Margin Expansion</div>
-          <div class="card-desc">Build toward 50%+ margins</div>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/copywriting-standards.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">copywriting-standards.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
         </a>
-        <a href="cfm-decks/session-4-the-lead-engine.html" class="card">
-          <div class="card-session">Session 4</div>
-          <div class="card-title">The Lead Engine</div>
-          <div class="card-desc">Predictable lead acquisition that compounds</div>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/deck-slide-catalog.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">deck-slide-catalog.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
         </a>
-        <a href="cfm-decks/session-5-sales-simplification.html" class="card">
-          <div class="card-session">Session 5</div>
-          <div class="card-title">Sales Simplification</div>
-          <div class="card-desc">Shorter cycles. Cleaner close. Less of you required.</div>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/design-system.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">design-system.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
         </a>
-        <a href="cfm-decks/session-6-90-day-execution-plan.html" class="card">
-          <div class="card-session">Session 6</div>
-          <div class="card-title">The 90-Day Execution Plan</div>
-          <div class="card-desc">Three moves. Weekly cadence. Total clarity.</div>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/email-sequence-patterns.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">email-sequence-patterns.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
+        </a>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/pedagogy-framework.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">pedagogy-framework.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
+        </a>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/velocity-pitch-progression.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">velocity-pitch-progression.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
+        </a>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/references/worksheet-structure.md" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-ref">R</span>
+          <span>
+            <span class="skill-name">worksheet-structure.md</span><br>
+            <span class="skill-type">Reference</span>
+          </span>
+        </a>
+
+        <!-- Validation Scripts -->
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/scripts/validate-deck.sh" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-script">V</span>
+          <span>
+            <span class="skill-name">validate-deck.sh</span><br>
+            <span class="skill-type">Validation script</span>
+          </span>
+        </a>
+        <a class="skill-card" href="https://github.com/matthgray99/cohort-engine/blob/main/skill/scripts/validate-emails.sh" target="_blank" rel="noopener">
+          <span class="skill-icon skill-icon-script">V</span>
+          <span>
+            <span class="skill-name">validate-emails.sh</span><br>
+            <span class="skill-type">Validation script</span>
+          </span>
         </a>
       </div>
     </div>
-    <div id="smm" class="tab-content">
-      <div class="grid">
-        <a href="smm-decks/session-1-the-brand-foundation.html" class="card">
-          <div class="card-session">Session 1</div>
-          <div class="card-title">The Brand Foundation</div>
-          <div class="card-desc">Who you are. Who you serve. Why they care.</div>
-        </a>
-        <a href="smm-decks/session-2-the-content-gps.html" class="card">
-          <div class="card-session">Session 2</div>
-          <div class="card-title">The Content GPS</div>
-          <div class="card-desc">Platform strategy. Content pillars. 30-day calendar.</div>
-        </a>
-        <a href="smm-decks/session-3-the-hook-engine.html" class="card">
-          <div class="card-session">Session 3</div>
-          <div class="card-title">The Hook Engine</div>
-          <div class="card-desc">200+ hooks. Your voice. Their attention.</div>
-        </a>
-        <a href="smm-decks/session-4-the-content-waterfall.html" class="card">
-          <div class="card-session">Session 4</div>
-          <div class="card-title">The Content Waterfall</div>
-          <div class="card-desc">1 piece becomes 22+. Never start from zero.</div>
-        </a>
-        <a href="smm-decks/session-5-the-distribution-machine.html" class="card">
-          <div class="card-session">Session 5</div>
-          <div class="card-title">The Distribution Machine</div>
-          <div class="card-desc">Publish, schedule, measure, compound.</div>
-        </a>
-        <a href="smm-decks/session-6-the-90-day-content-plan.html" class="card">
-          <div class="card-session">Session 6</div>
-          <div class="card-title">The 90-Day Content Plan</div>
-          <div class="card-desc">Three moves. Weekly cadence. Content machine running.</div>
-        </a>
-      </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="footer-text">
+        Cohort Engine &nbsp;|&nbsp; Founder OS &nbsp;|&nbsp;
+        <a class="footer-link" href="https://github.com/matthgray99/cohort-engine" target="_blank" rel="noopener">github.com/matthgray99/cohort-engine</a>
+      </p>
     </div>
+
   </div>
+
   <script>
-    document.querySelectorAll('.tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-        document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.cohort-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
+
+        panels.forEach(p => {
+          p.classList.toggle('active', p.id === 'panel-' + target);
+        });
       });
     });
   </script>
